@@ -20,7 +20,7 @@ public class LadderComponent : MonoBehaviour
 
         Debug.Log("Width: " + xWidth + "\n Height: " + yHeight);
     }
-        
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision && collision.CompareTag("Player"))
@@ -30,8 +30,8 @@ public class LadderComponent : MonoBehaviour
             {
                 return;
             }
-            playerController.GetComponent<Rigidbody2D>().gravityScale = 0f;
             playerController.CanClimb = true;
+            playerController.Grounded = true;
         }
     }
 
@@ -44,7 +44,6 @@ public class LadderComponent : MonoBehaviour
             {
                 return;
             }
-            playerController.GetComponent<Rigidbody2D>().gravityScale = 1f;
             playerController.CanClimb = false;
         }
     }

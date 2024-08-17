@@ -38,6 +38,10 @@ public class PlayerControllerStats : ScriptableObject
     [Tooltip("The detection distance for grounding and roof detection"), Range(0f, 0.5f)]
     public float GrounderDistance = 0.05f;
 
+    [Header("Climb")]
+    [Tooltip("Maximimum speed when climbing")]
+    public float MaxClimbSpeed = 16;
+
     [Header("JUMP")]
     [Tooltip("The immediate velocity applied when jumping")]
     public float JumpPower = 36;

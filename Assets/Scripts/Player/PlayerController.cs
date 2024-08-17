@@ -69,9 +69,16 @@ public class PlayerController : MonoBehaviour, IPlayerController
         CheckCollisions();
 
         HandleJump();
-        HandleDirection();
-        HandleGravity();
-
+        if(bCanClimb)
+        {
+            HandleClimb();
+        }
+        else
+        {
+            HandleDirection();
+            HandleGravity();
+        }
+        
         ApplyMovement();
     }
 
@@ -79,7 +86,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     private float _frameLeftGrounded = float.MinValue;
     private bool _grounded;
-
+    public bool Grounded
+    {
+        get { return _grounded; }
+        set { _grounded = value; }
+    }
     private void CheckCollisions()
     {
         Physics2D.queriesStartInColliders = false;
@@ -100,8 +111,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
             _endedJumpEarly = false;
             GroundedChanged?.Invoke(true, Mathf.Abs(_frameVelocity.y));
         }
-        // Left the Ground
-        else if (_grounded && !groundHit)
+        // Left the Ground and is not climbing
+        else if (_grounded && !groundHit && !bCanClimb)
         {
             _grounded = false;
             _frameLeftGrounded = _time;
@@ -113,6 +124,28 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     #endregion
 
+    #region Climbing
+    private void HandleClimb()
+    {
+        if (_frameInput.Move.x == 0)
+        {
+            _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, _stats.GroundDeceleration * Time.fixedDeltaTime);
+        }
+        else
+        {
+            _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * _stats.MaxSpeed, _stats.Acceleration * Time.fixedDeltaTime);
+        }
+        HandleJump();
+        if (_frameInput.Move.y == 0)
+        {
+            _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, 0, _stats.GroundDeceleration * Time.fixedDeltaTime);
+        }
+        else
+        {
+            _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, _frameInput.Move.y * _stats.MaxClimbSpeed, _stats.Acceleration * Time.fixedDeltaTime);
+        }
+    }
+    #endregion
 
     #region Jumping
 
