@@ -7,8 +7,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 1.0f;
     [SerializeField] private GameObject turretComponent;
     [SerializeField] private float rotationSpeed = 1.0f;
-
+    [SerializeField] private float fuelConsumptionTime = 0.5f;
+    [SerializeField] private float fuelConumptionRate = 0.01f;
     private Vector2 moveDirection = Vector2.zero;
+    private bool bCanInvokeFuelCheck = false;
     // Update is called once per frame
     void Update()
     {
@@ -22,18 +24,37 @@ public class PlayerMovement : MonoBehaviour
         float turretAngle = Mathf.Atan2(turretDirection.y, turretDirection.x) * Mathf.Rad2Deg - 90f;
         Quaternion turretRotation = Quaternion.AngleAxis(turretAngle, Vector3.forward);
         turretComponent.transform.rotation = Quaternion.Slerp(turretComponent.transform.rotation, turretRotation, rotationSpeed * Time.deltaTime);
-  
+
         float xAxisValue = Input.GetAxisRaw("Horizontal");
         float yAxisValue = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(xAxisValue, yAxisValue);
         moveDirection.Normalize();
-        if(moveDirection == Vector2.zero)
+        if (moveDirection == Vector2.zero)
         {
-            return;
+            CancelInvoke();
+            bCanInvokeFuelCheck = true;
         }
+        else
+        {
+            if (bCanInvokeFuelCheck)
+            {
+                InvokeRepeating("CheckFuelConsumption", fuelConsumptionTime, fuelConsumptionTime);
+                bCanInvokeFuelCheck = false;
+            }
+        }
+
         float MainBodyRotationAngle = Mathf.Atan2(yAxisValue, xAxisValue) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(MainBodyRotationAngle, Vector3.forward), movementSpeed * Time.deltaTime);
         transform.Translate(moveDirection * movementSpeed * Time.deltaTime, Space.World);
+    }
 
+    private void CheckFuelConsumption()
+    {
+        Player playerComponent = gameObject.GetComponent<Player>();
+        if (playerComponent != null)
+        {
+            playerComponent.AdjustFuel(-fuelConumptionRate);
+            playerComponent.UpdateFuelBar();
+        }
     }
 }

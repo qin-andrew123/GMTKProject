@@ -8,5 +8,6 @@ public class WeaponComponentData : ScriptableObject
 {
     public int numProjectilesShot;
     public float fireCooldown;
+    public int baseDamage;
     public GameObject ProjectilePrefab;
 }
