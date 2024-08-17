@@ -4,57 +4,53 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 1.0f;
-    [SerializeField] private GameObject turretComponent;
-    [SerializeField] private float rotationSpeed = 1.0f;
-    [SerializeField] private float fuelConsumptionTime = 0.5f;
-    [SerializeField] private float fuelConumptionRate = 0.01f;
+    [SerializeField] private float maxMovementSpeed = 10.0f;
+    [SerializeField] private float jumpUpSpeed = 2.0f;
     private Vector2 moveDirection = Vector2.zero;
-    private bool bCanInvokeFuelCheck = false;
-    // Update is called once per frame
-    void Update()
+    private Rigidbody2D playerRB;
+    private bool bCanJump = true;
+    private void Start()
     {
-        if (!turretComponent)
+        playerRB = GetComponent<Rigidbody2D>();
+        if (!playerRB)
         {
+            Debug.LogWarning("Warning: Rigidbody is not set");
+            return;
+        }
+    }
+
+    private void Update()
+    {
+        float xAxisValue = Input.GetAxisRaw("Horizontal");
+        moveDirection = new Vector2(xAxisValue, 0f);
+        moveDirection.Normalize();
+    }
+    private void FixedUpdate()
+    {
+        if (!playerRB)
+        {
+            Debug.LogWarning("Warning: Rigidbody is not set");
             return;
         }
 
-        Vector2 turretDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - turretComponent.transform.position;
-
-        float turretAngle = Mathf.Atan2(turretDirection.y, turretDirection.x) * Mathf.Rad2Deg - 90f;
-        Quaternion turretRotation = Quaternion.AngleAxis(turretAngle, Vector3.forward);
-        turretComponent.transform.rotation = Quaternion.Slerp(turretComponent.transform.rotation, turretRotation, rotationSpeed * Time.deltaTime);
-
-        float xAxisValue = Input.GetAxisRaw("Horizontal");
-        float yAxisValue = Input.GetAxisRaw("Vertical");
-        moveDirection = new Vector2(xAxisValue, yAxisValue);
-        moveDirection.Normalize();
-        if (moveDirection == Vector2.zero)
+        if(bCanJump && Input.GetAxisRaw("Jump") != 0)
         {
-            CancelInvoke();
-            bCanInvokeFuelCheck = true;
+            moveDirection += new Vector2(0, jumpUpSpeed);
+            bCanJump = false;
         }
-        else
+        playerRB.velocity += moveDirection;
+        if(Mathf.Abs(playerRB.velocity.x) > maxMovementSpeed)
         {
-            if (bCanInvokeFuelCheck)
-            {
-                InvokeRepeating("CheckFuelConsumption", fuelConsumptionTime, fuelConsumptionTime);
-                bCanInvokeFuelCheck = false;
-            }
+            float maxValue = playerRB.velocity.x < 0 ? -maxMovementSpeed : maxMovementSpeed;
+            playerRB.velocity = new Vector2(maxValue, playerRB.velocity.y);
         }
-
-        float MainBodyRotationAngle = Mathf.Atan2(yAxisValue, xAxisValue) * Mathf.Rad2Deg - 90f;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(MainBodyRotationAngle, Vector3.forward), movementSpeed * Time.deltaTime);
-        transform.Translate(moveDirection * movementSpeed * Time.deltaTime, Space.World);
     }
 
-    private void CheckFuelConsumption()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Player playerComponent = gameObject.GetComponent<Player>();
-        if (playerComponent != null)
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            playerComponent.AdjustFuel(-fuelConumptionRate);
-            playerComponent.UpdateFuelBar();
+            bCanJump = true;
         }
     }
 }
