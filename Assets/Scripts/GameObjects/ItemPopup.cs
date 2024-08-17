@@ -15,6 +15,10 @@ public class ItemPopup : MonoBehaviour
         displayTextName.text = displayText;
         displayTextName.transform.localPosition += offset;
     }
+    private void OnEnable()
+    {
+        displayTextName.gameObject.SetActive(false);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
@@ -39,6 +43,6 @@ public class ItemPopup : MonoBehaviour
 
     private void OnDisable()
     {
-        displayTextName.enabled = false;
+        displayTextName.gameObject.SetActive(false);
     }
 }

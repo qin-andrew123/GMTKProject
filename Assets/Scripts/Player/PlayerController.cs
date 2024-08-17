@@ -40,6 +40,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         _time += Time.deltaTime;
         GatherInput();
+        if(Input.GetButtonDown("Harvest"))
+        {
+            Debug.Log("Harvest Button Pressed: Sending Signal");
+            PlayerAttemptHarvest?.Invoke(gameObject);
+        }
     }
 
     private void GatherInput()
@@ -82,6 +87,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         ApplyMovement();
     }
 
+    #region Movement
     #region Collisions
 
     private float _frameLeftGrounded = float.MinValue;
@@ -217,6 +223,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #endregion
 
     private void ApplyMovement() => _rb.velocity = _frameVelocity;
+    #endregion
+
+    #region Harvesting
+    public static event Action<GameObject> PlayerAttemptHarvest;
+    #endregion
 
 #if UNITY_EDITOR
     private void OnValidate()
