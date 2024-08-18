@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         fallSpeedYDampingThreshold = CameraManager.Instance._fallSpeedYDampingChangeThreshold;
         player = GetComponent<Player>();
+        numJumps = numJumpsTotal;
     }
     private void Update()
     {
@@ -192,6 +193,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             _coyoteUsable = true;
             _bufferedJumpUsable = true;
             _endedJumpEarly = false;
+            numJumps = numJumpsTotal;
             GroundedChanged?.Invoke(true, Mathf.Abs(_frameVelocity.y));
         }
         // Left the Ground and is not climbing
@@ -231,7 +233,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #endregion
 
     #region Jumping
-
+    private int numJumpsTotal = 1;
+    private int numJumps = 0;
     private bool _jumpToConsume;
     private bool _bufferedJumpUsable;
     private bool _endedJumpEarly;
@@ -247,7 +250,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
         if (!_jumpToConsume && !HasBufferedJump) return;
 
-        if (_grounded || CanUseCoyote)
+        if (_grounded || CanUseCoyote || numJumps > 0)
         {
             ExecuteJump();
         }
@@ -262,6 +265,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         _bufferedJumpUsable = false;
         _coyoteUsable = false;
         _frameVelocity.y = _stats.JumpPower;
+        numJumps--;
         Jumped?.Invoke();
     }
 
