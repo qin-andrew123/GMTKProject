@@ -7,6 +7,7 @@ public class Collectable : MonoBehaviour
 {
     [SerializeField] private float lerpSpeed = 2.0f;
     [SerializeField] private GameObject floatingText;
+    [SerializeField] private TextMeshPro descriptionText;
     [SerializeField] private Color textColor;
 
     private string floatingString;
@@ -20,6 +21,10 @@ public class Collectable : MonoBehaviour
     public string FloatingString
     {
         set { floatingString = value; }
+    }
+    public void SetDescriptionText(string inputText)
+    {
+        descriptionText.text = inputText;
     }
     private void OnEnable()
     {

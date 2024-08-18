@@ -43,8 +43,11 @@ public class Harvestable : MonoBehaviour
 
                 Vector2 shotDirection = new Vector2(xValue, yValue);
                 GameObject miniRss = Instantiate(resourceSprites);
+                miniRss.transform.position = gameObject.transform.position;
                 miniRss.GetComponent<Rigidbody2D>().velocity += shotDirection * 3;
                 miniRss.GetComponent<Collectable>().PlayerRef = player;
+                string descText = "x" + numResourcesDropped;
+                miniRss.GetComponent<Collectable>().SetDescriptionText(descText);
                 string displayString = "+ " + eMaterialType;
                 Debug.Log(displayString);
                 miniRss.GetComponent<Collectable>().FloatingString = displayString;

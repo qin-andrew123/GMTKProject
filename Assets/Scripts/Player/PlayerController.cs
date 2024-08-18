@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private Vector2 _frameVelocity;
     private bool _cachedQueryStartInColliders;
     private bool bCanClimb = false;
+    private bool bSlidingOnIce = false;
+    public bool SlidingOnIce
+    {
+        set { bSlidingOnIce = value; }
+    }
     public bool CanClimb
     {
         get { return bCanClimb; }
@@ -94,7 +99,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         CheckCollisions();
 
-        HandleJump();
+        if(!bSlidingOnIce)
+        {
+            HandleJump();
+        }
         if (bCanClimb)
         {
             HandleClimb();
@@ -215,11 +223,16 @@ public class PlayerController : MonoBehaviour, IPlayerController
         if (_frameInput.Move.x == 0)
         {
             var deceleration = _grounded ? _stats.GroundDeceleration : _stats.AirDeceleration;
+            if(bSlidingOnIce)
+            {
+                deceleration = _stats.IceDeceleration;
+            }
             _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, deceleration * Time.fixedDeltaTime);
         }
         else
         {
-            _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * _stats.MaxSpeed, _stats.Acceleration * Time.fixedDeltaTime);
+            var acceleration = bSlidingOnIce? _stats.IceAcceleration : _stats.Acceleration;
+            _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * _stats.MaxSpeed, acceleration * Time.fixedDeltaTime);
         }
     }
 

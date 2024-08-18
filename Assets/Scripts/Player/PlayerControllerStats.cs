@@ -22,12 +22,17 @@ public class PlayerControllerStats : ScriptableObject
     [Header("MOVEMENT")]
     [Tooltip("The top horizontal movement speed")]
     public float MaxSpeed = 14;
-
+    [Tooltip("Max horizontal speed when on ice")]
+    public float IceMaxSpeed = 10;
     [Tooltip("The player's capacity to gain horizontal speed")]
     public float Acceleration = 120;
+    [Tooltip("Player acceleration on ice")]
+    public float IceAcceleration = 140;
 
     [Tooltip("The pace at which the player comes to a stop")]
     public float GroundDeceleration = 60;
+    [Tooltip("The pace at which player comes to stop on ice")]
+    public float IceDeceleration = 30;
 
     [Tooltip("Deceleration in air only after stopping input mid-air")]
     public float AirDeceleration = 30;

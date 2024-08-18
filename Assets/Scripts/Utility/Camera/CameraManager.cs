@@ -23,7 +23,7 @@ public class CameraManager : MonoBehaviour
     public bool OverrideLookatLerping
     {
         get { return bOverrideLookatLerping; }
-        set {  bOverrideLookatLerping = value; }
+        set { bOverrideLookatLerping = value; }
     }
     private void Awake()
     {
@@ -86,10 +86,10 @@ public class CameraManager : MonoBehaviour
         }
 
         float elapsedTime = 0f;
-        while(elapsedTime < panTime)
+        while (elapsedTime < panTime)
         {
             elapsedTime += Time.deltaTime;
-            Vector3 panLerp = Vector3.Lerp(startingPos , endpos, panTime / elapsedTime);
+            Vector3 panLerp = Vector3.Lerp(startingPos, endpos, panTime / elapsedTime);
             framingTransposer.m_TrackedObjectOffset = panLerp;
             yield return null;
         }
@@ -105,6 +105,7 @@ public class CameraManager : MonoBehaviour
         float optDistance = float.MaxValue;
         foreach (var iter in allCameraBoundaries)
         {
+            if (iter == null) return;
             float distance = Vector3.Distance(iter.transform.position, position);
             if (distance < optDistance)
             {

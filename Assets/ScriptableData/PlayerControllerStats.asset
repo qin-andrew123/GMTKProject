@@ -19,8 +19,11 @@ MonoBehaviour:
   VerticalDeadZoneThreshold: 0.3
   HorizontalDeadZoneThreshold: 0.1
   MaxSpeed: 14
+  IceMaxSpeed: 10
   Acceleration: 120
+  IceAcceleration: 5
   GroundDeceleration: 60
+  IceDeceleration: 1
   AirDeceleration: 30
   GroundingForce: -1.5
   GrounderDistance: 0.1

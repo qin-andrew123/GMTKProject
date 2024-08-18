@@ -10,7 +10,13 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerStats stats;
     [SerializeField] private GameObject scalesCounter;
     private Dictionary<Material, int> materialCountDict = new Dictionary<Material, int>();
-    
+    private bool bOverrideIce = false; // Ice Boots
+    public bool HasIceBoots
+    {
+        get { return bOverrideIce; }
+        set { bOverrideIce = value; }
+    }
+
     private void InitializeStats()
     {
         if(!stats)
