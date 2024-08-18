@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IPlayerController
 {
     [SerializeField] private PlayerControllerStats _stats;
+    private float fallSpeedYDampingThreshold;
     private Rigidbody2D _rb;
     private CapsuleCollider2D _col;
     private FrameInput _frameInput;
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     public Vector2 FrameInput => _frameInput.Move;
     public event Action<bool, float> GroundedChanged;
     public event Action Jumped;
-
+    public static event Action<float> OnHorizontalChangeDirection;
     #endregion
 
     private float _time;
@@ -35,15 +36,31 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
     }
-
+    private void Start()
+    {
+        fallSpeedYDampingThreshold = CameraManager.Instance._fallSpeedYDampingChangeThreshold;
+    }
     private void Update()
     {
         _time += Time.deltaTime;
         GatherInput();
-        if(Input.GetButtonDown("Harvest"))
+        if (Input.GetButtonDown("Harvest"))
         {
             Debug.Log("Harvest Button Pressed: Sending Signal");
             PlayerAttemptHarvest?.Invoke(gameObject);
+        }
+
+        if (_rb.velocity.y < fallSpeedYDampingThreshold && !CameraManager.Instance.IsLerpingYDamping && !CameraManager.Instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.Instance.LerpYDamping(true);
+        }
+
+        if (_rb.velocity.y >= 0f && !CameraManager.Instance.IsLerpingYDamping && CameraManager.Instance.LerpedFromPlayerFalling)
+        {
+            // reset so can be called again
+            CameraManager.Instance.LerpedFromPlayerFalling = false;
+
+            CameraManager.Instance.LerpYDamping(false);
         }
     }
 
@@ -61,7 +78,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
             _frameInput.Move.x = Mathf.Abs(_frameInput.Move.x) < _stats.HorizontalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.x);
             _frameInput.Move.y = Mathf.Abs(_frameInput.Move.y) < _stats.VerticalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.y);
         }
-
+        if(!CameraManager.Instance.OverrideLookatLerping)
+        {
+            OnHorizontalChangeDirection?.Invoke(_frameInput.Move.x);
+        }
+        
         if (_frameInput.JumpDown)
         {
             _jumpToConsume = true;
@@ -74,7 +95,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         CheckCollisions();
 
         HandleJump();
-        if(bCanClimb)
+        if (bCanClimb)
         {
             HandleClimb();
         }
@@ -83,7 +104,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             HandleDirection();
             HandleGravity();
         }
-        
+
         ApplyMovement();
     }
 
