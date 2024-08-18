@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerStats stats;
+    [SerializeField] private GameObject scalesCounter;
     private Dictionary<Material, int> materialCountDict = new Dictionary<Material, int>();
-    private int currentHealth;
+    
     private void InitializeStats()
     {
         if(!stats)
@@ -17,11 +18,12 @@ public class Player : MonoBehaviour
             return;
         }
 
-        foreach(var iter in stats.playerMaterials)
+        for(int i = 0; i < stats.playerMaterials.Count; ++i)
         {
-            materialCountDict.Add(iter, 0);
+            materialCountDict.Add(stats.playerMaterials[i], 0);
+            // If we want more, then we will have to refactor this
+            scalesCounter.GetComponentInChildren<TextMeshProUGUI>().SetText(stats.playerMaterials[i].ToString());
         }
-        currentHealth = stats.maxHealth;
     }
     void Start()
     {
@@ -45,8 +47,7 @@ public class Player : MonoBehaviour
         {
             materialCountDict[harvestable.MaterialType] = harvestable.NumResourcesDropped;
         }
-        Debug.Log("Material Type: " + harvestable.MaterialType + " added " +  harvestable.NumResourcesDropped + " to player inventory");
-        Debug.Log("Current amount for material (mat, amt): (" + harvestable.MaterialType + ", " + materialCountDict[harvestable.MaterialType] + ")");
+        scalesCounter.GetComponentInChildren<TextMeshProUGUI>().SetText(stats.playerMaterials[0].ToString() + ": " + materialCountDict[harvestable.MaterialType]);
     }
 
     private void OnDestroy()
