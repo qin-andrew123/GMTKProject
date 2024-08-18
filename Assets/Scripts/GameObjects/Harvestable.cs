@@ -35,8 +35,6 @@ public class Harvestable : MonoBehaviour
         }
         if(Vector2.Distance(gameObject.transform.position, player.transform.position) <= distForHarvest)
         {
-            Debug.Log("Can Harvest! Sending signal to harvest");
-
             for(int i  = 0; i < numResourcesDropped; ++i)
             {
                 float angle = UnityEngine.Random.Range(-75.0f, 75.0f) * Mathf.Deg2Rad;
