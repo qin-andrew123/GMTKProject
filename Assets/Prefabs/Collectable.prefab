@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5410586948594133749}
   - component: {fileID: 1155277263697172012}
   - component: {fileID: 2166075227238020615}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ResourceDesc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 5061746075502804036}
   - component: {fileID: 6701199155267509446}
   - component: {fileID: 2533352505498037971}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}

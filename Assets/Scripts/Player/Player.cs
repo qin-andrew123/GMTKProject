@@ -16,7 +16,104 @@ public class Player : MonoBehaviour
         get { return bOverrideIce; }
         set { bOverrideIce = value; }
     }
+    private bool bCanDoubleJump = false; // Spring
+    public bool CanDoubleJump
+    {
+        get { return bCanDoubleJump; }
+        set { bCanDoubleJump = value; }
+    }
+    private bool bCanDash = true; // Dash
 
+    public bool CanDash
+    {
+        get { return bCanDash; }
+        set { bCanDash = value; }
+    }
+    private bool bCanHalveEnvDamage = false; // Halve lava damage
+    public bool CanHalveEnvDamage
+    {
+        get { return bCanHalveEnvDamage; }
+        set { bCanHalveEnvDamage = value; }
+    }
+    private bool bIsImmuneToEnvDamage = false; // Env dmg immunity
+    public bool IsImmuneToEnvDamage
+    {
+        get { return bIsImmuneToEnvDamage; }
+        set { bIsImmuneToEnvDamage = value; }
+    }
+
+    private bool bCanBeHealedByEnv = false; // Env dmg heals
+    public bool CanBeHealedByEnv
+    {
+        get { return bCanBeHealedByEnv; }
+        set { bCanBeHealedByEnv = value; }
+    }
+    private bool bCanDestroyHazards = false; // Break vines
+    public bool CanBreakHurtBoxes
+    {
+        get { return bCanDestroyHazards; }
+        set { bCanDestroyHazards = value; }
+    }
+    private int obstacleDestructionLevel = 0; // 0 == cannot break, 1 == vines, 2 == mid level, 3 >= all
+    public int ObstacleDestructionLevel
+    {
+        get { return obstacleDestructionLevel; }
+        set 
+        {
+            if (value > 1)
+            {
+                ++obstacleDestructionLevel;
+            }
+            else
+            {
+                obstacleDestructionLevel += value;
+            }
+        }
+    } 
+    private bool bCanStopLedgeBreaking = false; // feather --> stops temp ledges from breaking
+    public bool DoesHaveFeather
+    {
+        get { return bCanStopLedgeBreaking; }
+        set { bCanStopLedgeBreaking = value; }
+    }
+    private int obstacleImmunityLevel = 0; // 0 = cannot dodge obst damage, 1 = once, 2 >= 2 times
+    public int ObstacleImmunityLevel
+    {
+        get { return obstacleImmunityLevel; }
+        set 
+        {
+            if(value > 1)
+            {
+                ++ObstacleImmunityLevel;
+            }
+            else
+            {
+                obstacleImmunityLevel += value;
+            }
+        }
+    }
+
+    private bool bAreUpgradesCheaper = false; // CheaperUpgrades
+    public bool AreUpgradesCheaper
+    {
+        get { return bAreUpgradesCheaper; }
+        set { bAreUpgradesCheaper = value; }
+    }
+    private bool bDoesGetBonusReward = false;
+
+    public bool DoGetBonusReward
+    {
+        get { return bDoesGetBonusReward; }
+        set { bDoesGetBonusReward = value; }
+    }
+    private bool bDoResourcesMagnet = false;
+    
+    public bool DoResourcesMagnet
+    {
+        get { return bDoResourcesMagnet; }
+        set { bDoResourcesMagnet = value; }
+    }
+    
     private void InitializeStats()
     {
         if(!stats)

@@ -27,6 +27,9 @@ MonoBehaviour:
   AirDeceleration: 30
   GroundingForce: -1.5
   GrounderDistance: 0.1
+  DashingVelocity: 30
+  DashingCooldown: 2
+  DashingDuration: 0.05
   MaxClimbSpeed: 16
   JumpPower: 36
   MaxFallSpeed: 40

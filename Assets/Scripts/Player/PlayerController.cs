@@ -1,17 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerController : MonoBehaviour, IPlayerController
 {
     [SerializeField] private PlayerControllerStats _stats;
+    private Player player;
     private float fallSpeedYDampingThreshold;
     private Rigidbody2D _rb;
     private CapsuleCollider2D _col;
     private FrameInput _frameInput;
     private Vector2 _frameVelocity;
+    private Vector2 lookDirection = Vector2.right;
     private bool _cachedQueryStartInColliders;
     private bool bCanClimb = false;
     private bool bSlidingOnIce = false;
@@ -44,11 +47,13 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private void Start()
     {
         fallSpeedYDampingThreshold = CameraManager.Instance._fallSpeedYDampingChangeThreshold;
+        player = GetComponent<Player>();
     }
     private void Update()
     {
         _time += Time.deltaTime;
         GatherInput();
+
         if (Input.GetButtonDown("Harvest"))
         {
             Debug.Log("Harvest Button Pressed: Sending Signal");
@@ -73,33 +78,62 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         _frameInput = new FrameInput
         {
-            JumpDown = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.C),
-            JumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.C),
+            JumpDown = Input.GetButtonDown("Jump"),
+            JumpHeld = Input.GetButton("Jump"),
+            DashDown = Input.GetButtonDown("Dash"),
+            DashHeld = Input.GetButton("Dash"),
             Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
         };
 
+        if(_frameInput.Move.x != 0)
+        {
+            lookDirection.x = _frameInput.Move.x;
+            lookDirection.Normalize();
+        }
         if (_stats.SnapInput)
         {
             _frameInput.Move.x = Mathf.Abs(_frameInput.Move.x) < _stats.HorizontalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.x);
             _frameInput.Move.y = Mathf.Abs(_frameInput.Move.y) < _stats.VerticalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.y);
         }
-        if(!CameraManager.Instance.OverrideLookatLerping)
+        if (!CameraManager.Instance.OverrideLookatLerping)
         {
             OnHorizontalChangeDirection?.Invoke(_frameInput.Move.x);
         }
-        
+
         if (_frameInput.JumpDown)
         {
             _jumpToConsume = true;
             _timeJumpWasPressed = _time;
         }
+        if (_frameInput.DashDown && bCanDashNow)
+        {
+            bIsDashing = true;
+            bCanDashNow = false;
+            dashDirection = new Vector2(_frameInput.Move.x, 0);
+            if(dashDirection == Vector2.zero)
+            {
+                dashDirection = lookDirection;
+            }
+            StartCoroutine(StopDashing());
+        }
     }
+
 
     private void FixedUpdate()
     {
         CheckCollisions();
 
-        if(!bSlidingOnIce)
+        if (player.CanDash)
+        {
+            if (bIsDashing)
+            {
+                _frameVelocity = dashDirection * _stats.DashingVelocity;
+                ApplyMovement();
+                return;
+            }
+        }
+
+        if (!bSlidingOnIce)
         {
             HandleJump();
         }
@@ -116,11 +150,25 @@ public class PlayerController : MonoBehaviour, IPlayerController
         ApplyMovement();
     }
 
-    #region Movement
+
+    #region Dash
+    private Vector2 dashDirection = Vector2.right;
+    private bool bIsDashing = false;
+    private bool bCanDashNow = true;
+
+    private IEnumerator StopDashing()
+    {
+        yield return new WaitForSeconds(_stats.DashingDuration);
+        bIsDashing = false;
+        yield return new WaitForSeconds(_stats.DashingCooldown);
+        bCanDashNow = true;
+    }
+    #endregion
+
     #region Collisions
 
     private float _frameLeftGrounded = float.MinValue;
-    private bool _grounded;
+    private bool _grounded = true;
     public bool Grounded
     {
         get { return _grounded; }
@@ -199,7 +247,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
         if (!_jumpToConsume && !HasBufferedJump) return;
 
-        if (_grounded || CanUseCoyote) ExecuteJump();
+        if (_grounded || CanUseCoyote)
+        {
+            ExecuteJump();
+        }
 
         _jumpToConsume = false;
     }
@@ -223,7 +274,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         if (_frameInput.Move.x == 0)
         {
             var deceleration = _grounded ? _stats.GroundDeceleration : _stats.AirDeceleration;
-            if(bSlidingOnIce)
+            if (bSlidingOnIce)
             {
                 deceleration = _stats.IceDeceleration;
             }
@@ -231,7 +282,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         }
         else
         {
-            var acceleration = bSlidingOnIce? _stats.IceAcceleration : _stats.Acceleration;
+            var acceleration = bSlidingOnIce ? _stats.IceAcceleration : _stats.Acceleration;
             _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * _stats.MaxSpeed, acceleration * Time.fixedDeltaTime);
         }
     }
@@ -257,7 +308,6 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #endregion
 
     private void ApplyMovement() => _rb.velocity = _frameVelocity;
-    #endregion
 
     #region Harvesting
     public static event Action<GameObject> PlayerAttemptHarvest;
@@ -275,6 +325,8 @@ public struct FrameInput
 {
     public bool JumpDown;
     public bool JumpHeld;
+    public bool DashDown;
+    public bool DashHeld;
     public Vector2 Move;
 }
 

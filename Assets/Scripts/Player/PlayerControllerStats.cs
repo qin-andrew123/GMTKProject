@@ -43,6 +43,10 @@ public class PlayerControllerStats : ScriptableObject
     [Tooltip("The detection distance for grounding and roof detection"), Range(0f, 0.5f)]
     public float GrounderDistance = 0.05f;
 
+    [Header("Dash")]
+    public float DashingVelocity = 20;
+    public float DashingCooldown = 1.0f;
+    public float DashingDuration = 0.2f;
     [Header("Climb")]
     [Tooltip("Maximimum speed when climbing")]
     public float MaxClimbSpeed = 16;
