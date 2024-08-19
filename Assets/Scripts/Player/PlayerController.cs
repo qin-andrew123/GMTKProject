@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private bool _cachedQueryStartInColliders;
     private bool bCanClimb = false;
     private bool bSlidingOnIce = false;
+    private Vector2 frameMouseInput;
     public bool SlidingOnIce
     {
         set { bSlidingOnIce = value; }
@@ -78,6 +79,13 @@ public class PlayerController : MonoBehaviour, IPlayerController
             Debug.Log("Blacksmith Shop Button Pressed: Sending Signal");
             PlayerAttemptShop?.Invoke(gameObject);
         }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            frameMouseInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            frameMouseInput.Normalize();
+            Debug.Log(frameMouseInput);
+            MineBlock();
+        }
     }
 
     private void GatherInput()
@@ -124,7 +132,19 @@ public class PlayerController : MonoBehaviour, IPlayerController
         }
     }
 
-
+    private void MineBlock()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, frameMouseInput, _stats.MiningDistance, _stats.MiningLayer);
+        if(hit)
+        {
+            Debug.Log("Hit something!");
+            BreakableBlockComponent breakableBlockComponent = hit.rigidbody.gameObject.GetComponent<BreakableBlockComponent>();
+            if(breakableBlockComponent != null)
+            {
+                breakableBlockComponent.AttemptBreakBlock(player.ObstacleDestructionLevel);
+            }
+        }
+    }
     private void FixedUpdate()
     {
         CheckCollisions();
