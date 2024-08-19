@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObstacleComponent : MonoBehaviour
 {
+    [Tooltip("Do you want this to stay alive for some time before destruction?")]
+    [SerializeField] private bool bDoesDestroyInstantly = true;
     [SerializeField] private float destroyTime = 2.0f;
     [SerializeField] private int damageAmount = 1;
     [Tooltip("How fast do you want this thing to go")]
@@ -41,6 +43,13 @@ public class ObstacleComponent : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Destroy(gameObject, destroyTime);
+        if(bDoesDestroyInstantly)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject, destroyTime);
+        }
     }
 }
