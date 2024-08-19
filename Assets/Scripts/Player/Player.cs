@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
         get { return bCanDestroyHazards; }
         set { bCanDestroyHazards = value; }
     }
-    private int obstacleDestructionLevel = 0; // 0 == cannot break, 1 == vines, 2 == mid level, 3 >= all
+    private int obstacleDestructionLevel = 1; // 0 == cannot break, 1 == vines, 2 == mid level, 3 >= all
     public int ObstacleDestructionLevel
     {
         get { return obstacleDestructionLevel; }

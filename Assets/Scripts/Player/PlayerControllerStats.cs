@@ -69,4 +69,10 @@ public class PlayerControllerStats : ScriptableObject
 
     [Tooltip("The amount of time we buffer a jump. This allows jump input before actually hitting the ground")]
     public float JumpBuffer = .2f;
+
+    [Header("Mining")]
+    [Tooltip("How far away do you want the mining to reach?")]
+    public float MiningDistance = 2.0f;
+    [Tooltip("What layer do you want to detect on?")]
+    public LayerMask MiningLayer;
 }

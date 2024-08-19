@@ -37,3 +37,7 @@ MonoBehaviour:
   JumpEndEarlyGravityModifier: 3
   CoyoteTime: 0.15
   JumpBuffer: 0.2
+  MiningDistance: 3
+  MiningLayer:
+    serializedVersion: 2
+    m_Bits: 2048
