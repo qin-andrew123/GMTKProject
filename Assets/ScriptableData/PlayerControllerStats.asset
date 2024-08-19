@@ -22,16 +22,16 @@ MonoBehaviour:
   IceMaxSpeed: 10
   Acceleration: 120
   IceAcceleration: 5
-  GroundDeceleration: 100
+  GroundDeceleration: 250
   IceDeceleration: 1
   AirDeceleration: 0
   GroundingForce: -0.26
   GrounderDistance: 0.065
-  DashingVelocity: 25
+  DashingVelocity: 31.4
   DashingCooldown: 0.35
   DashingDuration: 0.1
   MaxClimbSpeed: 16
-  JumpPower: 25
+  JumpPower: 27
   MaxFallSpeed: 40
   FallAcceleration: 110
   JumpEndEarlyGravityModifier: 3

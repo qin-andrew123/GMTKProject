@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   maxHealth: 10
-  invulnerabilityTime: 1.5
-  numCurrency: 0
+  invulnerabilityTime: 0.5
+  numCurrency: 4
   currencyType: 0
   playerUpgrades:
-  - {fileID: 11400000, guid: 9187948ae130e0c42bf0c06b4a4d49cb, type: 2}
-  - {fileID: 11400000, guid: 696e5ee46f444054ea280553762c9e86, type: 2}
-  - {fileID: 11400000, guid: 7f779f8c08bba154b9a309ebe03b8f9d, type: 2}
-  - {fileID: 11400000, guid: fca905d3d905d644b8986028cfedcef1, type: 2}
-  - {fileID: 11400000, guid: b37bfeaa8d6aa2b4dbe43056fb180fab, type: 2}
-  - {fileID: 11400000, guid: 567e107ef8ed4b347864023eea4913b6, type: 2}
   - {fileID: 11400000, guid: 08a29ba87b1bb3342b15da3e6ae30795, type: 2}
-  - {fileID: 11400000, guid: 4e11c0b154a81e342aa66309e8311895, type: 2}
-  - {fileID: 11400000, guid: 75080f58de605b8499e2a307e39ef046, type: 2}
+  - {fileID: 11400000, guid: 567e107ef8ed4b347864023eea4913b6, type: 2}
   - {fileID: 11400000, guid: 84c010e31e146644394d1ce79eb903b4, type: 2}
+  - {fileID: 11400000, guid: 03a1ee28119731842bd13a1e3d49a8d7, type: 2}
+  - {fileID: 11400000, guid: 696e5ee46f444054ea280553762c9e86, type: 2}
+  - {fileID: 11400000, guid: fca905d3d905d644b8986028cfedcef1, type: 2}
+  - {fileID: 11400000, guid: 75080f58de605b8499e2a307e39ef046, type: 2}
+  - {fileID: 11400000, guid: 4e11c0b154a81e342aa66309e8311895, type: 2}
   - {fileID: 11400000, guid: 042eee0ccff2285409ada66374599a86, type: 2}
   - {fileID: 11400000, guid: b95380f2ed29737469fcd8f3cb1ed81f, type: 2}
+  - {fileID: 11400000, guid: 9187948ae130e0c42bf0c06b4a4d49cb, type: 2}
   - {fileID: 11400000, guid: 10269256b560e4443ba390a3dc2f1951, type: 2}
-  - {fileID: 11400000, guid: 03a1ee28119731842bd13a1e3d49a8d7, type: 2}
+  - {fileID: 11400000, guid: b37bfeaa8d6aa2b4dbe43056fb180fab, type: 2}
+  - {fileID: 11400000, guid: 7f779f8c08bba154b9a309ebe03b8f9d, type: 2}
   - {fileID: 11400000, guid: e641ca26f5dd5fe4caf6f658cb242f28, type: 2}
