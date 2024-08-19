@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerStats stats;
     [SerializeField] private GameObject scalesCounter;
     private Dictionary<Material, int> materialCountDict = new Dictionary<Material, int>();
+    public Dictionary<Upgrade, string> upgradeName;
+    public Dictionary<Upgrade, string> upgradeExplanation;
+
     private bool bOverrideIce = false; // Ice Boots
     public bool HasIceBoots
     {
@@ -120,6 +123,12 @@ public class Player : MonoBehaviour
             materialCountDict.Add(stats.playerMaterials[i], 0);
             // If we want more, then we will have to refactor this
             scalesCounter.GetComponentInChildren<TextMeshProUGUI>().SetText(stats.playerMaterials[i].ToString());
+        }
+
+        for(int i = 0; i< stats.playerUpgrades.Count; ++i)
+        {
+            upgradeName.Add(stats.playerUpgrades[i], stats.playerUpgrades[i].ToString());
+            upgradeExplanation.Add(stats.playerUpgrades[i], stats.Explanation[i]);
         }
     }
     void Start()
