@@ -18,17 +18,17 @@ MonoBehaviour:
   SnapInput: 1
   VerticalDeadZoneThreshold: 0.3
   HorizontalDeadZoneThreshold: 0.1
-  MaxSpeed: 14
+  MaxSpeed: 12
   IceMaxSpeed: 10
   Acceleration: 120
   IceAcceleration: 5
-  GroundDeceleration: 60
+  GroundDeceleration: 100
   IceDeceleration: 1
-  AirDeceleration: 30
-  GroundingForce: -1.5
-  GrounderDistance: 0.1
-  DashingVelocity: 30
-  DashingCooldown: 2
+  AirDeceleration: 111.1
+  GroundingForce: -0.26
+  GrounderDistance: 0.065
+  DashingVelocity: 25
+  DashingCooldown: 0.2
   DashingDuration: 0.05
   MaxClimbSpeed: 16
   JumpPower: 36
