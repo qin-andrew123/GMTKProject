@@ -42,19 +42,13 @@ public class Player : MonoBehaviour
         set { bIsImmuneToEnvDamage = value; }
     }
 
-    private bool bCanBeHealedByEnv = false; // Env dmg heals
-    public bool CanBeHealedByEnv
-    {
-        get { return bCanBeHealedByEnv; }
-        set { bCanBeHealedByEnv = value; }
-    }
     private bool bCanDestroyHazards = false; // Break vines
     public bool CanBreakHurtBoxes
     {
         get { return bCanDestroyHazards; }
         set { bCanDestroyHazards = value; }
     }
-    private int obstacleDestructionLevel = 1; // 0 == cannot break, 1 == vines, 2 == mid level, 3 >= all
+    private int obstacleDestructionLevel = 0; // 0 == cannot break, 1 == vines, 2 == mid level, 3 >= all
     public int ObstacleDestructionLevel
     {
         get { return obstacleDestructionLevel; }
@@ -99,7 +93,7 @@ public class Player : MonoBehaviour
         get { return bAreUpgradesCheaper; }
         set { bAreUpgradesCheaper = value; }
     }
-    private bool bDoesGetBonusReward = false;
+    private bool bDoesGetBonusReward = true;
 
     public bool DoGetBonusReward
     {

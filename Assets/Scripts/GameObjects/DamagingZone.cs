@@ -9,16 +9,36 @@ public class DamagingZone : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject && collision.gameObject.GetComponent<PlayerHealth>())
+        if (collision.gameObject && collision.gameObject.CompareTag("Player"))
         {
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-            if (!playerHealth)
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (!playerHealth || !player)
             {
+                Debug.LogError("Error: Missing player on collided player object");
                 return;
             }
             if (playerHealth.CanTakeDamage)
             {
-                playerHealth.AdjustHealth(-damageAmount);
+                int modifyingDamage = damageAmount;
+                if(player.CanHalveEnvDamage)
+                {
+                    float halvedDamage = modifyingDamage / 2f;
+                    if ((halvedDamage <= 0.5))
+                    {
+                        modifyingDamage = 0;
+                    }
+                    else
+                    {
+                        modifyingDamage = (int)halvedDamage;
+                    }
+                }
+                if (player.IsImmuneToEnvDamage)
+                {
+                    modifyingDamage = 0;
+                }
+                
+                playerHealth.AdjustHealth(-modifyingDamage);
             }
         }
     }
