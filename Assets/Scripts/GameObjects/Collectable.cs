@@ -8,7 +8,11 @@ public class Collectable : MonoBehaviour
     [SerializeField] private float lerpSpeed = 2.0f;
     [SerializeField] private GameObject floatingText;
     [SerializeField] private Color textColor;
-
+    private int numRssDropped = 0;
+    public int NumRssDropped
+    {
+        set { numRssDropped = value; }
+    }
     private string floatingString;
     private GameObject playerRef;
     private Rigidbody2D collectableRB;
@@ -61,6 +65,9 @@ public class Collectable : MonoBehaviour
                 go.GetComponent<FloatingText>().TextColor = textColor;
                 go.GetComponent<FloatingText>().FloatingString = floatingString;
             }
+
+            GlobalData.Instance.AdjustCurrency(numRssDropped);
+
             Destroy(gameObject);
         }
     }

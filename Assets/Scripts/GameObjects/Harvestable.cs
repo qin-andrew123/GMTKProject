@@ -8,7 +8,7 @@ public class Harvestable : MonoBehaviour
 {
     [SerializeField] private float distForHarvest = 3.0f;
     [SerializeField] private int numResourcesDropped = 1;
-    [SerializeField] private Material eMaterialType;
+    [SerializeField] private CurrencyType eMaterialType;
     [SerializeField] private GameObject resourceSprites;
     [SerializeField] private TextMeshPro collectableDescription;
 
@@ -23,12 +23,11 @@ public class Harvestable : MonoBehaviour
         get { return numResourcesDropped; }
     }
 
-    public Material MaterialType
+    public CurrencyType MaterialType
     {
         get { return eMaterialType; }
     }
     public static event Action<GameObject> OnHarvest;
-    public static event Action OnConsumedLootCrate;
 
     private void Start()
     {
@@ -79,14 +78,15 @@ public class Harvestable : MonoBehaviour
                 miniRss.GetComponent<Collectable>().PlayerRef = player;
                 string displayString = "+ " + eMaterialType;
                 miniRss.GetComponent<Collectable>().FloatingString = displayString;
+                miniRss.GetComponent<Collectable>().NumRssDropped = 1;
             }
             OnHarvest?.Invoke(gameObject);
-        }
 
-        if(bIsLootCrate)
-        {
-            OnConsumedLootCrate?.Invoke();
-            gameObject.SetActive(false);
+            if (bIsLootCrate)
+            {
+                GlobalData.Instance.ClearLevel();
+                gameObject.SetActive(false);
+            }
         }
     }
 }

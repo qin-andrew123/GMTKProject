@@ -14,22 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   invulnerabilityTime: 1.5
-  playerMaterials: 00000000
-  playerUpgrades: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
-  Explanation:
-  - You can jump on ice.
-  - You can double jump.
-  - You can dash.
-  - Lava damage is halved.
-  - You are immune to damage from lava.
-  - Lava heals you.
-  - A pickaxe that can destroy vines.
-  - Your pickaxe can break fragile ice cubes.
-  - Your pickaxe can break all ice cubes.
-  - Platforms don't fall under you.
-  - You are protected from a falling object once per room.
-  - You are protected from a falling object twice per room.
-  - All upgrade costs are halved.
-  - You sometimes gain double reward at the end of the cave.
-  - Scales magnetize to you.
-  - You have +10 health.
+  numCurrency: 0
+  currencyType: 0
+  playerUpgrades:
+  - {fileID: 11400000, guid: 9187948ae130e0c42bf0c06b4a4d49cb, type: 2}
+  - {fileID: 11400000, guid: 696e5ee46f444054ea280553762c9e86, type: 2}
+  - {fileID: 11400000, guid: 7f779f8c08bba154b9a309ebe03b8f9d, type: 2}
+  - {fileID: 11400000, guid: fca905d3d905d644b8986028cfedcef1, type: 2}
+  - {fileID: 11400000, guid: b37bfeaa8d6aa2b4dbe43056fb180fab, type: 2}
+  - {fileID: 11400000, guid: 567e107ef8ed4b347864023eea4913b6, type: 2}
+  - {fileID: 11400000, guid: 08a29ba87b1bb3342b15da3e6ae30795, type: 2}
+  - {fileID: 11400000, guid: 4e11c0b154a81e342aa66309e8311895, type: 2}
+  - {fileID: 11400000, guid: 75080f58de605b8499e2a307e39ef046, type: 2}
+  - {fileID: 11400000, guid: 84c010e31e146644394d1ce79eb903b4, type: 2}
+  - {fileID: 11400000, guid: 042eee0ccff2285409ada66374599a86, type: 2}
+  - {fileID: 11400000, guid: b95380f2ed29737469fcd8f3cb1ed81f, type: 2}
+  - {fileID: 11400000, guid: 10269256b560e4443ba390a3dc2f1951, type: 2}
+  - {fileID: 11400000, guid: 03a1ee28119731842bd13a1e3d49a8d7, type: 2}
+  - {fileID: 11400000, guid: e641ca26f5dd5fe4caf6f658cb242f28, type: 2}

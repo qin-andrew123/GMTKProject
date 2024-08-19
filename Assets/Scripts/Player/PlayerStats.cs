@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum Material
+public enum CurrencyType
 {
     Scales
 }
@@ -12,11 +12,10 @@ public class PlayerStats : ScriptableObject
 {
     public int maxHealth;
     public float invulnerabilityTime;
-    // Materials should be saved across levels and can be used every upgrade station
-    [Tooltip("This should be initialized first will all possible materials player can access")]
-    public List<Material> playerMaterials;
-    public List<Upgrade> playerUpgrades;
-    public List<string> Explanation;
+    public int numCurrency = 0;
+    public CurrencyType currencyType;
+    [Tooltip("Order these in the order that we expect people to get these upgrades.")]
+    public List<UpgradeData> playerUpgrades = new List<UpgradeData>();
 }
 
 public enum Upgrade

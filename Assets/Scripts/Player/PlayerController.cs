@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private bool bCanClimb = false;
     private bool bSlidingOnIce = false;
     private Vector2 frameMouseInput;
+    private bool bCanBreakBlock = true;
     public bool SlidingOnIce
     {
         set { bSlidingOnIce = value; }
@@ -50,6 +51,14 @@ public class PlayerController : MonoBehaviour, IPlayerController
         fallSpeedYDampingThreshold = CameraManager.Instance._fallSpeedYDampingChangeThreshold;
         player = GetComponent<Player>();
         numJumps = numJumpsTotal;
+        Player.OnUpgradePurchased += ReceiveAdditionalJumps;
+        Blacksmith.OnActivateBlacksmithUI += UpdateCanMineBlock;
+    }
+    
+    private void OnDestroy()
+    {
+        Player.OnUpgradePurchased -= ReceiveAdditionalJumps;
+        Blacksmith.OnActivateBlacksmithUI -= UpdateCanMineBlock;
     }
     private void Update()
     {
@@ -79,7 +88,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             Debug.Log("Blacksmith Shop Button Pressed: Sending Signal");
             PlayerAttemptShop?.Invoke(gameObject);
         }
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && bCanBreakBlock)
         {
             frameMouseInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             frameMouseInput.Normalize();
@@ -131,7 +140,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
             StartCoroutine(StopDashing());
         }
     }
-
+    private void UpdateCanMineBlock(bool isBlacksmithActive)
+    {
+        bCanBreakBlock = !isBlacksmithActive;
+    }
     private void MineBlock()
     {
         RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, frameMouseInput, _stats.MiningDistance, _stats.MiningLayer);
@@ -258,7 +270,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #endregion
 
     #region Jumping
-    private int numJumpsTotal = 1;
+    private int numJumpsTotal = 0;
     private int numJumps = 0;
     private bool _jumpToConsume;
     private bool _bufferedJumpUsable;
@@ -268,7 +280,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     private bool HasBufferedJump => _bufferedJumpUsable && _time < _timeJumpWasPressed + _stats.JumpBuffer;
     private bool CanUseCoyote => _coyoteUsable && !_grounded && _time < _frameLeftGrounded + _stats.CoyoteTime;
-
+    private void ReceiveAdditionalJumps(Upgrade type, int amount)
+    {
+        numJumpsTotal += amount;
+    }
     private void HandleJump()
     {
         if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.velocity.y > 0) _endedJumpEarly = true;

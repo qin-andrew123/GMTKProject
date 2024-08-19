@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private PlayerStats stats;
     [SerializeField] private Slider healthSliderUI;
     private int numInvulnSaves = 0;
     private bool bCanTakeDamage = true;
@@ -13,24 +12,22 @@ public class PlayerHealth : MonoBehaviour
     {
         get { return bCanTakeDamage; }
     }
+    private int maxHealth;
     private int currentHealth;
     private float invulnTime; 
     private void InitializeStats()
     {
-        if (!stats)
-        {
-            return;
-        }
 
-        currentHealth = stats.maxHealth;
-        invulnTime = stats.invulnerabilityTime;
+        currentHealth = GlobalData.Instance.GetInitMaxHealth();
+        maxHealth = GlobalData.Instance.GetInitMaxHealth();
+        invulnTime = GlobalData.Instance.GetInvulnerabilityTime();
         if (!healthSliderUI)
         {
             Debug.LogError("No reference for health slider ui. make sure to set it");
             return;
         }
 
-        healthSliderUI.maxValue = stats.maxHealth;
+        healthSliderUI.maxValue = GlobalData.Instance.GetInitMaxHealth();
         healthSliderUI.value = currentHealth;
     }
 
@@ -42,17 +39,34 @@ public class PlayerHealth : MonoBehaviour
         {
             numInvulnSaves = player.ObstacleImmunityLevel;
         }
-    }
 
+        Player.OnUpgradePurchased += UpdateMaxHealth;
+        Player.OnUpgradePurchased += UpdateImmunities;
+    }
+    private void OnDestroy()
+    {
+        Player.OnUpgradePurchased -= UpdateMaxHealth;
+        Player.OnUpgradePurchased -= UpdateImmunities;
+    }
+    private void UpdateMaxHealth(Upgrade type, int amount)
+    {
+        maxHealth += amount;
+        currentHealth = maxHealth;
+        UpdateHealthUI();
+    }
+    private void UpdateImmunities(Upgrade type, int amount)
+    {
+        numInvulnSaves = amount;
+    }
     public void UpdateHealthUI()
     {
+        if(healthSliderUI.maxValue != maxHealth)
+        {
+            healthSliderUI.maxValue = maxHealth;
+        }
         healthSliderUI.value = currentHealth;
     }
 
-    public void AdjustNumInvulnSaves(int numOfSaves)
-    {
-        numInvulnSaves = numOfSaves;
-    }
     public void ResetInvulnSaves()
     {
         Player player = GetComponent<Player>();

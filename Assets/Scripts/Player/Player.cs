@@ -7,12 +7,10 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerStats stats;
     [SerializeField] private GameObject scalesCounter;
-    private Dictionary<Material, int> materialCountDict = new Dictionary<Material, int>();
-    public Dictionary<Upgrade, string> upgradeName;
-    public Dictionary<Upgrade, string> upgradeExplanation;
-
+    public Dictionary<Upgrade, string> upgradeName = new Dictionary<Upgrade, string>();
+    public Dictionary<Upgrade, string> upgradeExplanation = new Dictionary<Upgrade, string>();
+    public static event Action<Upgrade, int> OnUpgradePurchased;
     private bool bOverrideIce = false; // Ice Boots
     public bool HasIceBoots
     {
@@ -25,7 +23,7 @@ public class Player : MonoBehaviour
         get { return bCanDoubleJump; }
         set { bCanDoubleJump = value; }
     }
-    private bool bCanDash = true; // Dash
+    private bool bCanDash = false; // Dash
 
     public bool CanDash
     {
@@ -44,29 +42,17 @@ public class Player : MonoBehaviour
         get { return bIsImmuneToEnvDamage; }
         set { bIsImmuneToEnvDamage = value; }
     }
-
-    private bool bCanDestroyHazards = false; // Break vines
-    public bool CanBreakHurtBoxes
+    private bool bDoesHealInLava = false;
+    public bool DoesHealInLava
     {
-        get { return bCanDestroyHazards; }
-        set { bCanDestroyHazards = value; }
+        get { return bDoesHealInLava; }
+        set { bDoesHealInLava = value; }
     }
     private int obstacleDestructionLevel = 0; // 0 == cannot break, 1 == vines, 2 == mid level, 3 >= all
     public int ObstacleDestructionLevel
     {
         get { return obstacleDestructionLevel; }
-        set 
-        {
-            if (value > 1)
-            {
-                ++obstacleDestructionLevel;
-            }
-            else
-            {
-                obstacleDestructionLevel += value;
-            }
-        }
-    } 
+    }
     private bool bCanStopLedgeBreaking = false; // feather --> stops temp ledges from breaking
     public bool DoesHaveFeather
     {
@@ -77,17 +63,6 @@ public class Player : MonoBehaviour
     public int ObstacleImmunityLevel
     {
         get { return obstacleImmunityLevel; }
-        set 
-        {
-            if(value > 1)
-            {
-                ++ObstacleImmunityLevel;
-            }
-            else
-            {
-                obstacleImmunityLevel += value;
-            }
-        }
     }
 
     private bool bAreUpgradesCheaper = false; // CheaperUpgrades
@@ -96,7 +71,7 @@ public class Player : MonoBehaviour
         get { return bAreUpgradesCheaper; }
         set { bAreUpgradesCheaper = value; }
     }
-    private bool bDoesGetBonusReward = true;
+    private bool bDoesGetBonusReward = false;
 
     public bool DoGetBonusReward
     {
@@ -104,60 +79,116 @@ public class Player : MonoBehaviour
         set { bDoesGetBonusReward = value; }
     }
     private bool bDoResourcesMagnet = false;
-    
+
     public bool DoResourcesMagnet
     {
         get { return bDoResourcesMagnet; }
         set { bDoResourcesMagnet = value; }
     }
-    
     private void InitializeStats()
     {
-        if(!stats)
-        {
-            return;
-        }
-
-        for(int i = 0; i < stats.playerMaterials.Count; ++i)
-        {
-            materialCountDict.Add(stats.playerMaterials[i], 0);
-            // If we want more, then we will have to refactor this
-            scalesCounter.GetComponentInChildren<TextMeshProUGUI>().SetText(stats.playerMaterials[i].ToString());
-        }
-
-        for(int i = 0; i< stats.playerUpgrades.Count; ++i)
-        {
-            upgradeName.Add(stats.playerUpgrades[i], stats.playerUpgrades[i].ToString());
-            upgradeExplanation.Add(stats.playerUpgrades[i], stats.Explanation[i]);
-        }
+        // If we want more, then we will have to refactor this
+        scalesCounter.GetComponentInChildren<TextMeshProUGUI>().SetText(GlobalData.Instance.GetCurrency().ToString());
     }
     void Start()
     {
         InitializeStats();
-        Harvestable.OnHarvest += OnHarvestData;
+        GlobalData.OnPurchaseUpgrade += EvaluateUpgrade;
+        GlobalData.OnCurrencyAmountChange += OnCurrencyChanged;
     }
 
-    private void OnHarvestData(GameObject node)
+    private void EvaluateUpgrade(Upgrade eUpgradeType)
     {
-        Harvestable harvestable = node.GetComponent<Harvestable>();
-        if(!harvestable)
+        UpgradeData upgrade;
+        GlobalData.Instance.upgradeDataDict.TryGetValue(eUpgradeType, out upgrade);
+        if(!upgrade)
         {
-            Debug.Log("On Harvest Data harvested a node with no harvestable script");
-            return;
+            Debug.LogError("Error: Global Data singleton could not find this upgrade type");
         }
-        if(materialCountDict.ContainsKey(harvestable.MaterialType))
+
+        int currentCurrency = GlobalData.Instance.GetCurrency();
+        int upgradeCost = upgrade.currencyCost;
+        upgradeCost = bAreUpgradesCheaper ? upgradeCost / 2 : upgradeCost;
+
+        bool bCanPurchase = currentCurrency >= upgradeCost;
+        if (bCanPurchase)
         {
-            materialCountDict[harvestable.MaterialType] += harvestable.NumResourcesDropped;
+            switch (eUpgradeType)
+            {
+                case Upgrade.SpringSpikes: //icejump
+                    bOverrideIce = true;
+                    break;
+                case Upgrade.RustySpring: //doublejump
+                    bCanDoubleJump = true;
+                    OnUpgradePurchased(eUpgradeType, 1);
+                    break;
+                case Upgrade.SwiftWings: //dash
+                    bCanDash = true;
+                    break;
+                case Upgrade.SturdyBoots: //half lava
+                    bCanHalveEnvDamage = true;
+                    break;
+                case Upgrade.ObsidianBoots: //immune lava
+                    bIsImmuneToEnvDamage = true;
+                    break;
+                case Upgrade.CharmedGrieves: //heal in lava
+                    bDoesHealInLava = true;
+                    break;
+                case Upgrade.BladedTool: //break vines
+                    obstacleDestructionLevel += 1;
+                    break;
+                case Upgrade.FirmGrip: //break fragile ice
+                    obstacleDestructionLevel += 2;
+                    break;
+                case Upgrade.BladeSpikes: //break ice
+                    obstacleDestructionLevel += 3;
+                    break;
+                case Upgrade.Feather: //platforms dont fall
+                    bCanStopLedgeBreaking = true;
+                    break;
+                case Upgrade.FragileCap: //ignore dmg once
+                    obstacleImmunityLevel += 1;
+                    break;
+                case Upgrade.BronzeHelmet: // ignore dmg twice
+                    obstacleImmunityLevel += 2;
+                    break;
+                case Upgrade.GuildCoin: //cheaper upgrades
+                    bAreUpgradesCheaper = true;
+                    break;
+                case Upgrade.LuckyClove: //double reward chance
+                    bDoesGetBonusReward = true;
+                    break;
+                case Upgrade.Magnet: //scales magnetize
+                    bDoResourcesMagnet = true;
+                    break;
+                case Upgrade.CharmOfBravery://+10 health
+                    OnUpgradePurchased?.Invoke(eUpgradeType, 10);
+                    break;
+                default:
+                    break;
+            }
+            if(obstacleImmunityLevel > 2)
+            {
+                obstacleImmunityLevel = 2;
+            }
+            if(obstacleImmunityLevel != 0 && eUpgradeType == Upgrade.FragileCap || eUpgradeType == Upgrade.BronzeHelmet)
+            {
+                OnUpgradePurchased?.Invoke(eUpgradeType, obstacleImmunityLevel);
+            }
+
+            GlobalData.Instance.purchasedUpgrades.Add(eUpgradeType);
         }
-        else
-        {
-            materialCountDict[harvestable.MaterialType] = harvestable.NumResourcesDropped;
-        }
-        scalesCounter.GetComponentInChildren<TextMeshProUGUI>().SetText(stats.playerMaterials[0].ToString() + ": " + materialCountDict[harvestable.MaterialType]);
+
     }
+    private void OnCurrencyChanged()
+    {
+        scalesCounter.GetComponentInChildren<TextMeshProUGUI>().SetText(GlobalData.Instance.GetCurrencyType().ToString() + ": " + GlobalData.Instance.GetCurrency());
+    }
+    
 
     private void OnDestroy()
     {
-        Harvestable.OnHarvest -= OnHarvestData;
+        GlobalData.OnPurchaseUpgrade -= EvaluateUpgrade;
+        GlobalData.OnCurrencyAmountChange -= OnCurrencyChanged;
     }
 }

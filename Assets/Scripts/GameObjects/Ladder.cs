@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ladder : MonoBehaviour
 {
     [SerializeField] private GameObject extensionPrefab;
+    [SerializeField] private CameraControlTrigger LookUpTrigger;
     private float yHeight = 0f;
     private Vector2 currentCenter;
     // Start is called before the first frame update
@@ -17,14 +18,12 @@ public class Ladder : MonoBehaviour
         }
         yHeight = spriteRenderer.bounds.size.y;
         currentCenter = gameObject.transform.position;
-        ExtendLadder();
+        GlobalData.OnClearLevel += ExtendLadder;
     }
-    private void Update()
+
+    private void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            ExtendLadder();
-        }
+        GlobalData.OnClearLevel -= ExtendLadder;
     }
     private void ExtendLadder()
     {
@@ -32,5 +31,6 @@ public class Ladder : MonoBehaviour
         ladderSegment.transform.position = currentCenter;
         Vector2 extensionPosition = currentCenter + new Vector2(0, yHeight);
         currentCenter = extensionPosition;
+        LookUpTrigger.transform.position = currentCenter;
     }
 }
