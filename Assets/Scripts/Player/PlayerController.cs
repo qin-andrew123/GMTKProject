@@ -226,6 +226,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         // Landed on the Ground
         if (!_grounded && groundHit)
         {
+            Debug.Log("A player has landed on the ground, jumps should reset now.");
             _grounded = true;
             _coyoteUsable = true;
             _bufferedJumpUsable = true;
@@ -270,7 +271,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #endregion
 
     #region Jumping
-    private int numJumpsTotal = 0;
+    private int numJumpsTotal = 1;
     private int numJumps = 0;
     private bool _jumpToConsume;
     private bool _bufferedJumpUsable;
@@ -282,6 +283,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private bool CanUseCoyote => _coyoteUsable && !_grounded && _time < _frameLeftGrounded + _stats.CoyoteTime;
     private void ReceiveAdditionalJumps(Upgrade type, int amount)
     {
+        Debug.Log("Received additional jumps. This should only appear once");
         numJumpsTotal += amount;
     }
     private void HandleJump()
