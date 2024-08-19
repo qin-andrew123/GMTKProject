@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Harvestable : MonoBehaviour
@@ -9,6 +10,7 @@ public class Harvestable : MonoBehaviour
     [SerializeField] private int numResourcesDropped = 1;
     [SerializeField] private Material eMaterialType;
     [SerializeField] private GameObject resourceSprites;
+    [SerializeField] private TextMeshPro collectableDescription;
     public int NumResourcesDropped
     {
         get { return numResourcesDropped; }
@@ -19,6 +21,17 @@ public class Harvestable : MonoBehaviour
         get { return eMaterialType; }
     }
     public static event Action<GameObject> OnHarvest;
+
+    private void Start()
+    {
+        if(!collectableDescription)
+        {
+            Debug.LogWarning("Uh oh, a harvestable doesn't have it's description text mesh");
+            return;
+        }
+        string descText = "x" + numResourcesDropped;
+        collectableDescription.text = descText;
+    }
     private void OnEnable()
     {
         PlayerController.PlayerAttemptHarvest += QueryIsHarvestable;
@@ -44,12 +57,9 @@ public class Harvestable : MonoBehaviour
                 Vector2 shotDirection = new Vector2(xValue, yValue);
                 GameObject miniRss = Instantiate(resourceSprites);
                 miniRss.transform.position = gameObject.transform.position;
-                miniRss.GetComponent<Rigidbody2D>().velocity += shotDirection * 3;
+                miniRss.GetComponent<Rigidbody2D>().velocity = shotDirection * 5;
                 miniRss.GetComponent<Collectable>().PlayerRef = player;
-                string descText = "x" + numResourcesDropped;
-                miniRss.GetComponent<Collectable>().SetDescriptionText(descText);
                 string displayString = "+ " + eMaterialType;
-                Debug.Log(displayString);
                 miniRss.GetComponent<Collectable>().FloatingString = displayString;
             }
             OnHarvest?.Invoke(gameObject);

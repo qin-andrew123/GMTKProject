@@ -73,6 +73,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
             CameraManager.Instance.LerpYDamping(false);
         }
+        if (Input.GetButtonDown("Blacksmith"))
+        {
+            Debug.Log("Blacksmith Shop Button Pressed: Sending Signal");
+            PlayerAttemptShop?.Invoke(gameObject);
+        }
     }
 
     private void GatherInput()
@@ -315,6 +320,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     #region Harvesting
     public static event Action<GameObject> PlayerAttemptHarvest;
+    #endregion
+
+    #region Interacting
+    public static event Action<GameObject> PlayerAttemptShop;
     #endregion
 
 #if UNITY_EDITOR
