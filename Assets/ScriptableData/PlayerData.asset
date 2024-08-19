@@ -15,3 +15,21 @@ MonoBehaviour:
   maxHealth: 10
   invulnerabilityTime: 1.5
   playerMaterials: 00000000
+  playerUpgrades: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
+  Explanation:
+  - You can jump on ice.
+  - You can double jump.
+  - You can dash.
+  - Lava damage is halved.
+  - You are immune to damage from lava.
+  - Lava heals you.
+  - A pickaxe that can destroy vines.
+  - Your pickaxe can break fragile ice cubes.
+  - Your pickaxe can break all ice cubes.
+  - Platforms don't fall under you.
+  - You are protected from a falling object once per room.
+  - You are protected from a falling object twice per room.
+  - All upgrade costs are halved.
+  - You sometimes gain double reward at the end of the cave.
+  - Scales magnetize to you.
+  - You have +10 health.

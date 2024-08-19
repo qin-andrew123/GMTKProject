@@ -133,7 +133,8 @@ public class Player : MonoBehaviour
 
         for(int i = 0; i< stats.playerUpgrades.Count; ++i)
         {
-
+            upgradeName.Add(stats.playerUpgrades[i], stats.playerUpgrades[i].ToString());
+            upgradeExplanation.Add(stats.playerUpgrades[i], stats.Explanation[i]);
         }
     }
     void Start()
