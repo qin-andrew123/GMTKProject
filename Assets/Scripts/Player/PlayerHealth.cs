@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private Slider healthSliderUI;
+    public static event Action OnPlayerDie;
     private int numInvulnSaves = 0;
     private bool bCanTakeDamage = true;
     public bool CanTakeDamage
@@ -87,8 +89,19 @@ public class PlayerHealth : MonoBehaviour
         currentHealth += inputAmount;
         UpdateHealthUI();
         StartCoroutine(InvulnerabilityTime());
-    }
 
+        if(currentHealth <= 0)
+        {
+            OnPlayerDie?.Invoke();
+            ResetPlayerHealth();
+        }
+    }
+    private void ResetPlayerHealth()
+    {
+        currentHealth = maxHealth;
+        UpdateHealthUI();
+        ResetInvulnSaves();
+    }
     IEnumerator InvulnerabilityTime()
     {
         bCanTakeDamage = false;

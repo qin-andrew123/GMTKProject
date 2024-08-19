@@ -11,11 +11,13 @@ public class SpawnPortalComponent : MonoBehaviour
     void Start()
     {
         GlobalData.OnClearLevel += ActivateReturnPortal;
+        PlayerHealth.OnPlayerDie += ReturnPlayerToSpawn;
     }
 
     private void OnDestroy()
     {
-        GlobalData.OnClearLevel -= ActivateReturnPortal; 
+        GlobalData.OnClearLevel -= ActivateReturnPortal;
+        PlayerHealth.OnPlayerDie -= ReturnPlayerToSpawn;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
