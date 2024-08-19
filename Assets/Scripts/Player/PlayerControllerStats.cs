@@ -47,6 +47,7 @@ public class PlayerControllerStats : ScriptableObject
     public float DashingVelocity = 20;
     public float DashingCooldown = 1.0f;
     public float DashingDuration = 0.2f;
+
     [Header("Climb")]
     [Tooltip("Maximimum speed when climbing")]
     public float MaxClimbSpeed = 16;

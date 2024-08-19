@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         Blacksmith.OnActivateBlacksmithUI += UpdateCanMineBlock;
         SpawnPortalComponent.OnTravellingToSpawn += IgnoreInputTravelling;
     }
-    
+
     private void OnDestroy()
     {
         Player.OnUpgradePurchased -= ReceiveAdditionalJumps;
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private void Update()
     {
         _time += Time.deltaTime;
-        if(!bCanGatherInput)
+        if (!bCanGatherInput)
         {
             return;
         }
@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
         };
 
-        if(_frameInput.Move.x != 0)
+        if (_frameInput.Move.x != 0)
         {
             lookDirection.x = _frameInput.Move.x;
             lookDirection.Normalize();
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             bIsDashing = true;
             bCanDashNow = false;
             dashDirection = new Vector2(_frameInput.Move.x, 0);
-            if(dashDirection == Vector2.zero)
+            if (dashDirection == Vector2.zero)
             {
                 dashDirection = lookDirection;
             }
@@ -164,11 +164,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private void MineBlock()
     {
         RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, frameMouseInput, _stats.MiningDistance, _stats.MiningLayer);
-        if(hit)
+        if (hit)
         {
             Debug.Log("Hit something!");
             BreakableBlockComponent breakableBlockComponent = hit.rigidbody.gameObject.GetComponent<BreakableBlockComponent>();
-            if(breakableBlockComponent != null)
+            if (breakableBlockComponent != null)
             {
                 breakableBlockComponent.AttemptBreakBlock(player.ObstacleDestructionLevel);
             }
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     }
     private void FixedUpdate()
     {
-        if(!bCanGatherInput)
+        if (!bCanGatherInput)
         {
             return;
         }
@@ -217,6 +217,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     private IEnumerator StopDashing()
     {
+        PlayerHealth playerHealthComponent = GetComponent<PlayerHealth>();
+        playerHealthComponent.CallInvulnerability(_stats.DashingDuration);
         yield return new WaitForSeconds(_stats.DashingDuration);
         bIsDashing = false;
         yield return new WaitForSeconds(_stats.DashingCooldown);
