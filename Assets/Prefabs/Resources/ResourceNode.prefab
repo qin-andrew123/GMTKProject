@@ -464,6 +464,8 @@ MonoBehaviour:
   eMaterialType: 0
   resourceSprites: {fileID: 3811144530327408222, guid: 1a209e8e60db79440abd4c9cd53e00bd, type: 3}
   collectableDescription: {fileID: 1630419776370188142}
+  bIsLootCrate: 0
+  lootModifier: 3
 --- !u!58 &1344656670992016608
 CircleCollider2D:
   m_ObjectHideFlags: 0

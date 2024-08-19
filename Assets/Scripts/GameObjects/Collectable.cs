@@ -21,10 +21,14 @@ public class Collectable : MonoBehaviour
     {
         set { floatingString = value; }
     }
-    private void OnEnable()
+    private void Start()
     {
         collectableRB = GetComponent<Rigidbody2D>();
-        StartCoroutine(DelayTillCollect());
+        bool ShouldMagnet = playerRef.GetComponent<Player>().DoResourcesMagnet;
+        if(ShouldMagnet)
+        {
+            StartCoroutine(DelayTillCollect());
+        }
     }
     // Update is called once per frame
     void Update()

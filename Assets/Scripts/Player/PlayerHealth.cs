@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private PlayerStats stats;
     [SerializeField] private Slider healthSliderUI;
-    
+    private int numInvulnSaves = 0;
     private bool bCanTakeDamage = true;
     public bool CanTakeDamage
     {
@@ -37,6 +37,11 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         InitializeStats();
+        Player player = GetComponent<Player>(); 
+        if(player)
+        {
+            numInvulnSaves = player.ObstacleImmunityLevel;
+        }
     }
 
     public void UpdateHealthUI()
@@ -44,8 +49,27 @@ public class PlayerHealth : MonoBehaviour
         healthSliderUI.value = currentHealth;
     }
 
+    public void AdjustNumInvulnSaves(int numOfSaves)
+    {
+        numInvulnSaves = numOfSaves;
+    }
+    public void ResetInvulnSaves()
+    {
+        Player player = GetComponent<Player>();
+        numInvulnSaves = player.ObstacleImmunityLevel;
+    }
     public void AdjustHealth(int inputAmount)
     {
+        if(inputAmount < 0)
+        {
+            if(numInvulnSaves > 0)
+            {
+                --numInvulnSaves;
+                StartCoroutine(InvulnerabilityTime());
+                return;
+            }
+        }
+        
         currentHealth += inputAmount;
         UpdateHealthUI();
         StartCoroutine(InvulnerabilityTime());

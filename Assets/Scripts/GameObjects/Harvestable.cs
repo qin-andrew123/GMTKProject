@@ -11,6 +11,13 @@ public class Harvestable : MonoBehaviour
     [SerializeField] private Material eMaterialType;
     [SerializeField] private GameObject resourceSprites;
     [SerializeField] private TextMeshPro collectableDescription;
+
+    [Header("Loot Crates")]
+    [Tooltip("This is for end of dungeon reward")]
+    [SerializeField] private bool bIsLootCrate = false;
+    [Tooltip("Modifier for how much bonus loot to drop (if upgraded)")]
+    [Range(3, 8)]
+    [SerializeField] private int lootModifier;
     public int NumResourcesDropped
     {
         get { return numResourcesDropped; }
@@ -21,16 +28,21 @@ public class Harvestable : MonoBehaviour
         get { return eMaterialType; }
     }
     public static event Action<GameObject> OnHarvest;
+    public static event Action OnConsumedLootCrate;
 
     private void Start()
     {
-        if(!collectableDescription)
+        // We don't care about showing this if it's a loot crate since it'll look cool
+        if(!bIsLootCrate)
         {
-            Debug.LogWarning("Uh oh, a harvestable doesn't have it's description text mesh");
-            return;
+            if (!collectableDescription)
+            {
+                Debug.LogWarning("Uh oh, a harvestable doesn't have it's description text mesh");
+                return;
+            }
+            string descText = "x" + numResourcesDropped;
+            collectableDescription.text = descText;
         }
-        string descText = "x" + numResourcesDropped;
-        collectableDescription.text = descText;
     }
     private void OnEnable()
     {
@@ -48,6 +60,12 @@ public class Harvestable : MonoBehaviour
         }
         if(Vector2.Distance(gameObject.transform.position, player.transform.position) <= distForHarvest)
         {
+            if(player.GetComponent<Player>().DoGetBonusReward && bIsLootCrate)
+            {
+                int modifier = UnityEngine.Random.Range(2, lootModifier);
+                numResourcesDropped *= modifier;
+            }
+
             for(int i  = 0; i < numResourcesDropped; ++i)
             {
                 float angle = UnityEngine.Random.Range(-75.0f, 75.0f) * Mathf.Deg2Rad;
@@ -63,6 +81,12 @@ public class Harvestable : MonoBehaviour
                 miniRss.GetComponent<Collectable>().FloatingString = displayString;
             }
             OnHarvest?.Invoke(gameObject);
+        }
+
+        if(bIsLootCrate)
+        {
+            OnConsumedLootCrate?.Invoke();
+            gameObject.SetActive(false);
         }
     }
 }
