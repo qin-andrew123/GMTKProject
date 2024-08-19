@@ -210,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 13271414}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.88130665, y: -0.38057595, z: -9.795542}
+  m_LocalPosition: {x: 0.03129393, y: 0.51940405, z: -9.795542}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -603,7 +603,7 @@ Transform:
   m_GameObject: {fileID: 157797500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.88130665, y: -0.38057595, z: -9.795542}
+  m_LocalPosition: {x: 0.031306565, y: 0.6794241, z: -9.795542}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -712,6 +712,8 @@ MonoBehaviour:
   eMaterialType: 0
   resourceSprites: {fileID: 3811144530327408222, guid: 1a209e8e60db79440abd4c9cd53e00bd, type: 3}
   collectableDescription: {fileID: 0}
+  bIsLootCrate: 0
+  lootModifier: 0
 --- !u!114 &196344052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -860,8 +862,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.14046107, g: 0.39420396, b: 0.66666657, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8fb6fcf1f8a3c8643b38f07fadf42eb9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -880,7 +882,7 @@ Transform:
   m_GameObject: {fileID: 314019103}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2, y: -0.4, z: 0}
+  m_LocalPosition: {x: 0.35, y: 0.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -958,8 +960,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
+  m_Offset: {x: 0, y: 0.048274636}
+  m_Size: {x: 1, y: 2.0562065}
   m_Direction: 0
 --- !u!114 &314019110
 MonoBehaviour:
@@ -973,7 +975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aabf6c53797f3c849b2347b39d8745c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 1ef54a0996052554eb984a484285ef0f, type: 2}
   scalesCounter: {fileID: 501213033}
 --- !u!114 &314019111
 MonoBehaviour:
@@ -987,7 +988,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb93a74cda0bb24885ad8f66b0af486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 1ef54a0996052554eb984a484285ef0f, type: 2}
   healthSliderUI: {fileID: 1383204330}
 --- !u!96 &314019112
 TrailRenderer:
@@ -1961,6 +1961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   extensionPrefab: {fileID: 2947738626980047932, guid: a2a82ef45ccbf0048ae07d7ed234bd43, type: 3}
+  LookUpTrigger: {fileID: 0}
 --- !u!4 &1292012555
 Transform:
   m_ObjectHideFlags: 0
@@ -2453,6 +2454,8 @@ MonoBehaviour:
   eMaterialType: 0
   resourceSprites: {fileID: 3811144530327408222, guid: 1a209e8e60db79440abd4c9cd53e00bd, type: 3}
   collectableDescription: {fileID: 0}
+  bIsLootCrate: 0
+  lootModifier: 0
 --- !u!114 &1392704740
 MonoBehaviour:
   m_ObjectHideFlags: 0
