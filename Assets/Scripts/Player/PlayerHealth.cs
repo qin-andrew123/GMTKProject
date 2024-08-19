@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     }
     private int maxHealth;
     private int currentHealth;
-    private float invulnTime; 
+    private float invulnTime;
     private void InitializeStats()
     {
 
@@ -36,8 +36,8 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         InitializeStats();
-        Player player = GetComponent<Player>(); 
-        if(player)
+        Player player = GetComponent<Player>();
+        if (player)
         {
             numInvulnSaves = player.ObstacleImmunityLevel;
         }
@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void UpdateHealthUI()
     {
-        if(healthSliderUI.maxValue != maxHealth)
+        if (healthSliderUI.maxValue != maxHealth)
         {
             healthSliderUI.maxValue = maxHealth;
         }
@@ -76,21 +76,21 @@ public class PlayerHealth : MonoBehaviour
     }
     public void AdjustHealth(int inputAmount)
     {
-        if(inputAmount < 0)
+        if (inputAmount < 0)
         {
-            if(numInvulnSaves > 0)
+            if (numInvulnSaves > 0)
             {
                 --numInvulnSaves;
-                StartCoroutine(InvulnerabilityTime());
+                StartCoroutine(InvulnerabilityTime(invulnTime));
                 return;
             }
         }
-        
+
         currentHealth += inputAmount;
         UpdateHealthUI();
-        StartCoroutine(InvulnerabilityTime());
+        StartCoroutine(InvulnerabilityTime(invulnTime));
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             OnPlayerDie?.Invoke();
             ResetPlayerHealth();
@@ -102,7 +102,11 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthUI();
         ResetInvulnSaves();
     }
-    IEnumerator InvulnerabilityTime()
+    public void CallInvulnerability(float inputTime)
+    {
+        StartCoroutine(InvulnerabilityTime(inputTime));
+    }
+    IEnumerator InvulnerabilityTime(float invulnTime)
     {
         bCanTakeDamage = false;
         yield return new WaitForSeconds(invulnTime);
