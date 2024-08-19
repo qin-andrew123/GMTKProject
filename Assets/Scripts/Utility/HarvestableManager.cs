@@ -25,16 +25,21 @@ public class HarvestableManager : MonoBehaviour
             node.SetActive(false);
         }
         Harvestable.OnHarvest += TurnOffNode;
+        SpawnPortalComponent.OnTravellingToSpawn += ReactivateNodes;
+        PlayerHealth.OnPlayerDie += ReactivateNodes;
         ChooseNodesToActivate();
-
-        for(int i = 0; i < activeNodes.Count; ++i)
-        {
-            nodeActiveIndex.Add(ResourceNodes[activeNodes[i]], activeNodes[i]);
-        }
     }
 
     private void ChooseNodesToActivate()
     {
+        // We want to reset on respawn/ return to base
+        if(nodeActiveIndex.Count > 0)
+        {
+            nodeActiveIndex.Clear();
+            activeNodes.Clear();
+            inactiveNodes.Clear();
+        }
+        
         if(bIsResourceNodesWeighted)
         {
             foreach(int i in ResourceNodeWeights)
@@ -91,26 +96,31 @@ public class HarvestableManager : MonoBehaviour
                 }
             }
         }
+
+        for (int i = 0; i < activeNodes.Count; ++i)
+        {
+            ResourceNodes[activeNodes[i]].SetActive(true);
+            nodeActiveIndex.Add(ResourceNodes[activeNodes[i]], activeNodes[i]);
+        }
     }
     private void TurnOffNode(GameObject node)
     {
         if (nodeActiveIndex.ContainsKey(node))
         {
-            Debug.Log("Harvest Manager Received Harvest Call");
-            StartCoroutine(ResetTimer(node));
+            Debug.Log("Harvest Manager Received Harvest Call. Turning off:" + node.name);
+            node.SetActive(false);
         }
     }
 
-    IEnumerator ResetTimer(GameObject node)
+    private void ReactivateNodes()
     {
-        node.SetActive(false);
-        yield return new WaitForSeconds(respawnTime);
-        node.SetActive(true);
+        ChooseNodesToActivate();
     }
-
     private void OnDestroy()
     {
         Harvestable.OnHarvest -= TurnOffNode;
+        SpawnPortalComponent.OnTravellingToSpawn -= ReactivateNodes;
+        PlayerHealth.OnPlayerDie -= ReactivateNodes;
     }
 #if UNITY_EDITOR
     private void OnValidate()
