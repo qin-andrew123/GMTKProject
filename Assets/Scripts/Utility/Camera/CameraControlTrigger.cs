@@ -45,6 +45,11 @@ public class CameraControlTrigger : MonoBehaviour
                     customInpsectorObjects.ePanDirection,
                     true);
             }
+            else if (customInpsectorObjects.swapCameras && customInpsectorObjects.cameraOnLeft && customInpsectorObjects.cameraOnRight)
+            {
+                Vector2 exitDirection = (collision.transform.position - triggerCollider2D.bounds.center).normalized;
+                CameraManager.Instance.SwapCamera(customInpsectorObjects.cameraOnLeft, customInpsectorObjects.cameraOnRight, exitDirection);
+            }
         }
     }
 }
@@ -53,6 +58,10 @@ public class CameraControlTrigger : MonoBehaviour
 public class CustomInspectorObjects
 {
     public bool panCameraOnContact = false;
+    public bool swapCameras = false;
+
+    [HideInInspector] public CinemachineVirtualCamera cameraOnLeft;
+    [HideInInspector] public CinemachineVirtualCamera cameraOnRight;
 
     [HideInInspector] public PanDirection ePanDirection;
     [HideInInspector] public float panDistance = 3f;
@@ -79,6 +88,18 @@ public class MyScriptEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
+
+        if (cameraControlTrigger.customInpsectorObjects.swapCameras)
+        {
+            cameraControlTrigger.customInpsectorObjects.cameraOnLeft = EditorGUILayout.ObjectField(
+                "Camera on Left",
+                cameraControlTrigger.customInpsectorObjects.cameraOnLeft,
+                typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
+            cameraControlTrigger.customInpsectorObjects.cameraOnRight = EditorGUILayout.ObjectField(
+                "Camera on Right",
+                cameraControlTrigger.customInpsectorObjects.cameraOnRight,
+                typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
+        }
         if (cameraControlTrigger.customInpsectorObjects.panCameraOnContact)
         {
             cameraControlTrigger.customInpsectorObjects.ePanDirection = (PanDirection)EditorGUILayout.EnumPopup(
@@ -92,7 +113,7 @@ public class MyScriptEditor : Editor
                     cameraControlTrigger.customInpsectorObjects.panTime);
         }
 
-        if(GUI.changed)
+        if (GUI.changed)
         {
             EditorUtility.SetDirty(cameraControlTrigger);
         }

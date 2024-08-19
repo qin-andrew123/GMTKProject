@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     #endregion
 
     private float _time;
-
+    private bool bCanGatherInput = true;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -53,16 +53,33 @@ public class PlayerController : MonoBehaviour, IPlayerController
         numJumps = numJumpsTotal;
         Player.OnUpgradePurchased += ReceiveAdditionalJumps;
         Blacksmith.OnActivateBlacksmithUI += UpdateCanMineBlock;
+        SpawnPortalComponent.OnTravellingToSpawn += IgnoreInputTravelling;
     }
     
     private void OnDestroy()
     {
         Player.OnUpgradePurchased -= ReceiveAdditionalJumps;
         Blacksmith.OnActivateBlacksmithUI -= UpdateCanMineBlock;
+        SpawnPortalComponent.OnTravellingToSpawn -= IgnoreInputTravelling;
+    }
+
+    private void IgnoreInputTravelling(float time)
+    {
+        StartCoroutine(IgnoreInput(time));
+    }
+    private IEnumerator IgnoreInput(float time)
+    {
+        bCanGatherInput = false;
+        yield return new WaitForSeconds(time);
+        bCanGatherInput = true;
     }
     private void Update()
     {
         _time += Time.deltaTime;
+        if(!bCanGatherInput)
+        {
+            return;
+        }
         GatherInput();
 
         if (Input.GetButtonDown("Harvest"))
@@ -159,6 +176,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
     }
     private void FixedUpdate()
     {
+        if(!bCanGatherInput)
+        {
+            return;
+        }
         CheckCollisions();
 
         if (player.CanDash)

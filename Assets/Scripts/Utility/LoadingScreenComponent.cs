@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class LoadingScreenComponent : MonoBehaviour
 {
     [SerializeField] private Sprite[] potentialLoadingArt;
-    [SerializeField] private float loadingTime;
-
+    private float loadingTime;
+    public float LoadingTime
+    {
+        set { loadingTime = value; }
+    }
     private void OnEnable()
     {
         ActivateLoadingScreen();

@@ -18,10 +18,9 @@ public class CinemachineComponent : MonoBehaviour
             Debug.LogError("Warning cinemachine has no virtual camera");
             return;
         }
-
         PlayerController.OnHorizontalChangeDirection += AdjustLookatPoint;
     }
-
+    
     private void OnDestroy()
     {
         PlayerController.OnHorizontalChangeDirection -= AdjustLookatPoint;

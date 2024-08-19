@@ -19,6 +19,7 @@ public class Ladder : MonoBehaviour
         yHeight = spriteRenderer.bounds.size.y;
         currentCenter = gameObject.transform.position;
         GlobalData.OnClearLevel += ExtendLadder;
+        ExtendLadder();
     }
 
     private void OnDestroy()

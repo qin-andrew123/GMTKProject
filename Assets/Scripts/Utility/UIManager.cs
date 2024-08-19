@@ -23,8 +23,9 @@ public class UIManager : MonoBehaviour
     {
         currencyCounterUI.GetComponent<TextMeshProUGUI>().text = "x " + GlobalData.Instance.GetCurrency().ToString();
     }
-    private void ActivateLoadingScreen()
+    private void ActivateLoadingScreen(float time)
     {
         loadingScreenUI.SetActive(true);
+        loadingScreenUI.GetComponent<LoadingScreenComponent>().LoadingTime = time;
     }
 }

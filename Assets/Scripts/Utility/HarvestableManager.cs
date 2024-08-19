@@ -25,11 +25,15 @@ public class HarvestableManager : MonoBehaviour
             node.SetActive(false);
         }
         Harvestable.OnHarvest += TurnOffNode;
-        SpawnPortalComponent.OnTravellingToSpawn += ReactivateNodes;
-        PlayerHealth.OnPlayerDie += ReactivateNodes;
+        SpawnPortalComponent.OnTravellingToSpawn += ChooseNodesToActivate;
+        PlayerHealth.OnPlayerDie += ChooseNodesToActivate;
         ChooseNodesToActivate();
     }
 
+    private void ChooseNodesToActivate(float time)
+    {
+        ChooseNodesToActivate();
+    }
     private void ChooseNodesToActivate()
     {
         // We want to reset on respawn/ return to base
@@ -103,6 +107,8 @@ public class HarvestableManager : MonoBehaviour
             nodeActiveIndex.Add(ResourceNodes[activeNodes[i]], activeNodes[i]);
         }
     }
+
+
     private void TurnOffNode(GameObject node)
     {
         if (nodeActiveIndex.ContainsKey(node))
@@ -112,15 +118,12 @@ public class HarvestableManager : MonoBehaviour
         }
     }
 
-    private void ReactivateNodes()
-    {
-        ChooseNodesToActivate();
-    }
+
     private void OnDestroy()
     {
         Harvestable.OnHarvest -= TurnOffNode;
-        SpawnPortalComponent.OnTravellingToSpawn -= ReactivateNodes;
-        PlayerHealth.OnPlayerDie -= ReactivateNodes;
+        SpawnPortalComponent.OnTravellingToSpawn -= ChooseNodesToActivate;
+        PlayerHealth.OnPlayerDie -= ChooseNodesToActivate;
     }
 #if UNITY_EDITOR
     private void OnValidate()

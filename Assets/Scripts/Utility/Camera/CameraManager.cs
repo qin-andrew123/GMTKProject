@@ -37,6 +37,7 @@ public class CameraManager : MonoBehaviour
             {
                 currentCamera = allVirtualCameras[i];
                 framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+                break;
             }
         }
 
@@ -49,7 +50,19 @@ public class CameraManager : MonoBehaviour
     {
         panCameraCoroutine = StartCoroutine(IEPanCameraOnContact(panDistance, panTime, ePanDirection, bPanToStartingPos));
     }
-
+    public void UpdateMainCamera(int cameraIndex)
+    {
+        if(allVirtualCameras.Length <= cameraIndex)
+        {
+            Debug.LogError("Error: Invalid camera index set. Make sure that you have the proper cameras set up in camera manager");
+            return;
+        }
+        CinemachineVirtualCamera oldCamera = currentCamera;
+        oldCamera.enabled = false;
+        currentCamera = allVirtualCameras[cameraIndex];
+        currentCamera.enabled = true;
+        UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
+    }
     private IEnumerator IEPanCameraOnContact(float panDistance, float panTime, PanDirection ePanDirection, bool bPanToStartingPos)
     {
         Vector2 endpos = Vector2.zero;
@@ -147,5 +160,24 @@ public class CameraManager : MonoBehaviour
             yield return null;
         }
         IsLerpingYDamping = false;
+    }
+
+    public void SwapCamera(CinemachineVirtualCamera leftCamera, CinemachineVirtualCamera rightCamera, Vector2 triggerExitDirection)
+    {
+        if (currentCamera == leftCamera && triggerExitDirection.x > 0)
+        {
+            rightCamera.enabled = true;
+            leftCamera.enabled = false;
+            currentCamera = rightCamera;
+            framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        }
+        else if (currentCamera == rightCamera && triggerExitDirection.x < 0)
+        {
+            leftCamera.enabled = true;
+            rightCamera.enabled = false;
+            currentCamera = leftCamera;
+            framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        }
+        CameraManager.Instance.UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
     }
 }
