@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TwoXRewardChance
   m_EditorClassIdentifier: 
   upgradeType: 13
-  upgradeName: Lucky Break
+  upgradeName: Lucky Clove
   upgradeDescription: 'You sometimes gain more reward at the end of the cave. '
   currencyCost: 0
   upgradeImage: {fileID: 0}
