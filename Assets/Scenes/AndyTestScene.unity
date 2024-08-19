@@ -2344,6 +2344,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3502878380438000675, guid: d20c4c1ee2c843840bc192282cd4824a, type: 3}
+      propertyPath: numResourcesDropped
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8221647956164827601, guid: d20c4c1ee2c843840bc192282cd4824a, type: 3}
       propertyPath: m_Name
       value: ResourceNode
@@ -2391,7 +2395,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 348258279803788871, guid: d20c4c1ee2c843840bc192282cd4824a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d20c4c1ee2c843840bc192282cd4824a, type: 3}
 --- !u!1001 &3239364504789101494
 PrefabInstance:
