@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public enum TriggerDirection
@@ -28,7 +26,7 @@ public class ObstacleSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        switch(eTrapDirection)
+        switch (eTrapDirection)
         {
             case TriggerDirection.UP:
                 trapTriggerDirection = Vector2.up;
@@ -50,14 +48,14 @@ public class ObstacleSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(bIsTrap)
+        if (bIsTrap)
         {
-            if(bHasLaunchedTrap)
+            if (bHasLaunchedTrap)
             {
                 return;
             }
             RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, trapTriggerDirection, triggerDistance, detectionLayer);
-            if(hit)
+            if (hit)
             {
                 GameObject trap = Instantiate(trapObject, transform.position, Quaternion.identity);
                 ObstacleComponent obstacleComponent = trap.GetComponent<ObstacleComponent>();
@@ -72,7 +70,7 @@ public class ObstacleSpawner : MonoBehaviour
         }
         else
         {
-            if(bCanLaunchTrap)
+            if (bCanLaunchTrap)
             {
                 GameObject trap = Instantiate(trapObject, transform.position, Quaternion.identity);
                 ObstacleComponent obstacleComponent = trap.GetComponent<ObstacleComponent>();
