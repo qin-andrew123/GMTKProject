@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 8
   upgradeName: Blade Spikes
   upgradeDescription: 'Your omnitool can break all ice cubes. '
-  currencyCost: 22
+  currencyCost: 36
   upgradeImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}
   costImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}

@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 2
   upgradeName: Swift Wings
   upgradeDescription: 'You can dash. '
-  currencyCost: 3
+  currencyCost: 2
   upgradeImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}
   costImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}

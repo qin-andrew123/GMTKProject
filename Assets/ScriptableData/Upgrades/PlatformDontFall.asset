@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 9
   upgradeName: Feather
   upgradeDescription: 'Platforms don''t fall under you. '
-  currencyCost: 6
+  currencyCost: 8
   upgradeImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}
   costImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}
