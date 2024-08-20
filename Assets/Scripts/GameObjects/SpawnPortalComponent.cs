@@ -21,6 +21,7 @@ public class SpawnPortalComponent : MonoBehaviour
     {
         if (collision.gameObject && collision.gameObject.CompareTag("Player"))
         {
+            GlobalData.Instance.ClearLevel();
             ReturnPlayerToSpawn();
         }
     }

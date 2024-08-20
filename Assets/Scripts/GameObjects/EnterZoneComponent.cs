@@ -12,17 +12,16 @@ public class EnterZoneComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GlobalData.OnClearLevel += DenyPlayersReEntry;
         playerCollider = GetComponent<Collider2D>();
         playerCollider.excludeLayers = permittedLayers;
     }
 
-    private void OnDestroy()
-    {
-        GlobalData.OnClearLevel -= DenyPlayersReEntry;
-    }
 
-    private void DenyPlayersReEntry()
+    public void AllowPlayersReEntry()
+    {
+        playerCollider.excludeLayers = permittedLayers;
+    }
+    public void DenyPlayersReEntry()
     {
         playerCollider.excludeLayers = everythingExceptPermitted;
     }
