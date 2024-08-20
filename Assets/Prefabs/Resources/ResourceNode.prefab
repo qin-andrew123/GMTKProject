@@ -331,7 +331,7 @@ MonoBehaviour:
   verticalOffset: 2
   horizontalOffset: 0
   displayTextName: {fileID: 3086392970894002600}
-  DisplayText: Interact [E]
+  DisplayText: ' '
 --- !u!50 &-1537353488529996735
 Rigidbody2D:
   serializedVersion: 4
