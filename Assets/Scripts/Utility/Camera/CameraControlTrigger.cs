@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -7,12 +8,17 @@ using UnityEngine;
 
 public class CameraControlTrigger : MonoBehaviour
 {
-    public CustomInspectorObjects customInpsectorObjects;
-
+    public CustomInspectorObjects cameraControlOptions;
     private Collider2D triggerCollider2D;
-
+    private ZoneSwapperComponent zoneSwapperComponent;
+    private bool bDoesHaveParent = false;
     private void Start()
     {
+        zoneSwapperComponent = GetComponentInParent<ZoneSwapperComponent>();
+        if (zoneSwapperComponent)
+        {
+            bDoesHaveParent = true;
+        }
         triggerCollider2D = GetComponent<Collider2D>();
     }
 
@@ -20,13 +26,13 @@ public class CameraControlTrigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (customInpsectorObjects.panCameraOnContact)
+            if (cameraControlOptions.panCameraOnContact)
             {
                 CameraManager.Instance.OverrideLookatLerping = true;
                 CameraManager.Instance.PanCameraOnContact(
-                    customInpsectorObjects.panDistance,
-                    customInpsectorObjects.panTime,
-                    customInpsectorObjects.ePanDirection,
+                    cameraControlOptions.panDistance,
+                    cameraControlOptions.panTime,
+                    cameraControlOptions.ePanDirection,
                     false);
             }
         }
@@ -36,19 +42,23 @@ public class CameraControlTrigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (customInpsectorObjects.panCameraOnContact)
+            if (cameraControlOptions.panCameraOnContact)
             {
                 CameraManager.Instance.OverrideLookatLerping = false;
                 CameraManager.Instance.PanCameraOnContact(
-                    customInpsectorObjects.panDistance,
-                    customInpsectorObjects.panTime,
-                    customInpsectorObjects.ePanDirection,
+                    cameraControlOptions.panDistance,
+                    cameraControlOptions.panTime,
+                    cameraControlOptions.ePanDirection,
                     true);
             }
-            else if (customInpsectorObjects.swapCameras && customInpsectorObjects.cameraOnLeft && customInpsectorObjects.cameraOnRight)
+            else if (cameraControlOptions.swapCameras && cameraControlOptions.cameraOnLeft && cameraControlOptions.cameraOnRight)
             {
                 Vector2 exitDirection = (collision.transform.position - triggerCollider2D.bounds.center).normalized;
-                CameraManager.Instance.SwapCamera(customInpsectorObjects.cameraOnLeft, customInpsectorObjects.cameraOnRight, exitDirection);
+                if (bDoesHaveParent)
+                {
+                    zoneSwapperComponent.TriggerActivated();
+                }
+                CameraManager.Instance.SwapCamera(cameraControlOptions.cameraOnLeft, cameraControlOptions.cameraOnRight, exitDirection);
             }
         }
     }
@@ -89,28 +99,28 @@ public class MyScriptEditor : Editor
     {
         base.OnInspectorGUI();
 
-        if (cameraControlTrigger.customInpsectorObjects.swapCameras)
+        if (cameraControlTrigger.cameraControlOptions.swapCameras)
         {
-            cameraControlTrigger.customInpsectorObjects.cameraOnLeft = EditorGUILayout.ObjectField(
+            cameraControlTrigger.cameraControlOptions.cameraOnLeft = EditorGUILayout.ObjectField(
                 "Camera on Left",
-                cameraControlTrigger.customInpsectorObjects.cameraOnLeft,
+                cameraControlTrigger.cameraControlOptions.cameraOnLeft,
                 typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
-            cameraControlTrigger.customInpsectorObjects.cameraOnRight = EditorGUILayout.ObjectField(
+            cameraControlTrigger.cameraControlOptions.cameraOnRight = EditorGUILayout.ObjectField(
                 "Camera on Right",
-                cameraControlTrigger.customInpsectorObjects.cameraOnRight,
+                cameraControlTrigger.cameraControlOptions.cameraOnRight,
                 typeof(CinemachineVirtualCamera), true) as CinemachineVirtualCamera;
         }
-        if (cameraControlTrigger.customInpsectorObjects.panCameraOnContact)
+        if (cameraControlTrigger.cameraControlOptions.panCameraOnContact)
         {
-            cameraControlTrigger.customInpsectorObjects.ePanDirection = (PanDirection)EditorGUILayout.EnumPopup(
+            cameraControlTrigger.cameraControlOptions.ePanDirection = (PanDirection)EditorGUILayout.EnumPopup(
                     "Camera Pan Direction",
-                    cameraControlTrigger.customInpsectorObjects.ePanDirection);
-            cameraControlTrigger.customInpsectorObjects.panDistance = EditorGUILayout.FloatField(
+                    cameraControlTrigger.cameraControlOptions.ePanDirection);
+            cameraControlTrigger.cameraControlOptions.panDistance = EditorGUILayout.FloatField(
                     "Camera Pan Distance",
-                    cameraControlTrigger.customInpsectorObjects.panDistance);
-            cameraControlTrigger.customInpsectorObjects.panTime = EditorGUILayout.FloatField(
+                    cameraControlTrigger.cameraControlOptions.panDistance);
+            cameraControlTrigger.cameraControlOptions.panTime = EditorGUILayout.FloatField(
                     "Camera Pan Time",
-                    cameraControlTrigger.customInpsectorObjects.panTime);
+                    cameraControlTrigger.cameraControlOptions.panTime);
         }
 
         if (GUI.changed)
