@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private Vector2 frameMouseInput;
     private bool bCanBreakBlock = true;
     private Animator playerAnimator;
+    
+    private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip jumpSFX;
+
     public bool SlidingOnIce
     {
         set { bSlidingOnIce = value; }
@@ -52,7 +56,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
         playerAnimator = GetComponent<Animator>();
+        playerAudioSource = GetComponent<AudioSource>();
     }
+
     private void Start()
     {
         fallSpeedYDampingThreshold = CameraManager.Instance._fallSpeedYDampingChangeThreshold;
@@ -74,12 +80,14 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         StartCoroutine(IgnoreInput(time));
     }
+
     private IEnumerator IgnoreInput(float time)
     {
         bCanGatherInput = false;
         yield return new WaitForSeconds(time);
         bCanGatherInput = true;
     }
+
     private void Update()
     {
         _time += Time.deltaTime;
@@ -186,10 +194,12 @@ public class PlayerController : MonoBehaviour, IPlayerController
             StartCoroutine(StopDashing());
         }
     }
+
     private void UpdateCanMineBlock(bool isBlacksmithActive)
     {
         bCanBreakBlock = !isBlacksmithActive;
     }
+
     private void MineBlock()
     {
         RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, frameMouseInput, _stats.MiningDistance, _stats.MiningLayer);
@@ -244,7 +254,6 @@ public class PlayerController : MonoBehaviour, IPlayerController
         ApplyMovement();
     }
 
-
     #region Dash
     private Vector2 dashDirection = Vector2.right;
     private bool bIsDashing = false;
@@ -270,6 +279,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         get { return _grounded; }
         set { _grounded = value; }
     }
+
     private void CheckCollisions()
     {
         Physics2D.queriesStartInColliders = false;
@@ -358,6 +368,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         Debug.Log("Received additional jumps. This should only appear once");
         numJumpsTotal += amount;
     }
+
     private void HandleJump()
     {
         if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.velocity.y > 0) _endedJumpEarly = true;
@@ -381,6 +392,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
         _frameVelocity.y = _stats.JumpPower;
         numJumps--;
 
+        Jumped?.Invoke();
+
+        playerAudioSource.PlayOneShot(jumpSFX);
     }
 
     #endregion
