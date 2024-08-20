@@ -58,7 +58,6 @@ public class GlobalData : MonoBehaviour
     {
         OnPurchaseUpgrade?.Invoke(eUpgradeType);
     }
-
     public void ClearLevel()
     {
         OnClearLevel?.Invoke();

@@ -6,37 +6,29 @@ using UnityEngine;
 public class SpawnPortalComponent : MonoBehaviour
 {
     [SerializeField] private Transform desiredSpawnPoint;
-    private bool bIsActivated = false;
-    public static event Action OnTravellingToSpawn;
+    public static event Action<float> OnTravellingToSpawn;
     void Start()
     {
-        GlobalData.OnClearLevel += ActivateReturnPortal;
+        PlayerHealth.OnPlayerDie += ReturnPlayerToSpawn;
     }
 
     private void OnDestroy()
     {
-        GlobalData.OnClearLevel -= ActivateReturnPortal; 
+        PlayerHealth.OnPlayerDie -= ReturnPlayerToSpawn;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject && collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject && collision.gameObject.CompareTag("Player"))
         {
-            if(bIsActivated)
-            {
-                ReturnPlayerToSpawn();
-                bIsActivated = false;
-            }
+            GlobalData.Instance.ClearLevel();
+            ReturnPlayerToSpawn();
         }
-    }
-    private void ActivateReturnPortal()
-    {
-        bIsActivated = true;
     }
     private void ReturnPlayerToSpawn()
     {
         GlobalData.Instance.playerReference.transform.position = desiredSpawnPoint.position;
-        OnTravellingToSpawn?.Invoke();
-        CameraManager.Instance.UpdateConfiningShape(desiredSpawnPoint.position);
+        OnTravellingToSpawn?.Invoke(1.5f);
+        CameraManager.Instance.UpdateMainCamera(0);
     }
 }
