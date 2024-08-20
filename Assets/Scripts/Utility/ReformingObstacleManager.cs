@@ -6,14 +6,14 @@ public class ReformingObstacleManager : MonoBehaviour
 {
     [Tooltip("Contains all obstacles that can reform. Currently vines and reformingplatforms")]
     [SerializeField] private List<GameObject> reformingObstacles;
-
+    private bool bReadyToRespawn = false;
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < reformingObstacles.Count; ++i)
+        for (int i = 0; i < reformingObstacles.Count; ++i)
         {
             ReformingObject reformingObject = reformingObstacles[i].GetComponent<ReformingObject>();
-            if(reformingObject)
+            if (reformingObject)
             {
                 reformingObject.ParentManager = this;
                 reformingObject.Index = i;
@@ -33,7 +33,7 @@ public class ReformingObstacleManager : MonoBehaviour
             return;
         }
 
-        if(timeToBreak == 0)
+        if (timeToBreak == 0)
         {
             reformingObstacles[index].SetActive(false);
         }
@@ -41,7 +41,7 @@ public class ReformingObstacleManager : MonoBehaviour
         {
             StartCoroutine(DestroyObject(timeToBreak, index));
         }
-        if(bDoesRespawn)
+        if (bDoesRespawn && bReadyToRespawn)
         {
             StartCoroutine(RespawnObject(input.RespawnTime, index));
         }
@@ -50,10 +50,12 @@ public class ReformingObstacleManager : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToBreak);
         reformingObstacles[index].SetActive(false);
+        bReadyToRespawn = true;
     }
     private IEnumerator RespawnObject(float reformTime, int index)
     {
         yield return new WaitForSeconds(reformTime);
         reformingObstacles[index].SetActive(true);
+        bReadyToRespawn = false;
     }
 }
