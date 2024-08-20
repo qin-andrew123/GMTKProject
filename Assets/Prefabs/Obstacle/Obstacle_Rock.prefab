@@ -162,7 +162,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bDoesDestroyInstantly: 1
+  bDoesHaveAirtime: 1
+  airtimeDuration: 0.1
   destroyTime: 2
   damageAmount: 5
   objectVelocityMultiplier: 3
   objectVelocity: {x: 0, y: 0}
+  destroyedSFX: {fileID: 8300000, guid: 1e3ff91e5f0bb644798ffde63367325d, type: 3}

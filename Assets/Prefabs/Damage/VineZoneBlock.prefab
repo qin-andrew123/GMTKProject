@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 1
+  damageSFX: {fileID: 0}
 --- !u!114 &607923473561110091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +163,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockHardness: 1
+  destroyedSFXs:
+  - {fileID: 8300000, guid: 00e44b7a1079f8c4fb9a17b64fb6c8c6, type: 3}
+  - {fileID: 8300000, guid: 29f9253eae3b686418193328b936485d, type: 3}
+  - {fileID: 8300000, guid: 29f9253eae3b686418193328b936485d, type: 3}
 --- !u!50 &6114796316505213712
 Rigidbody2D:
   serializedVersion: 4

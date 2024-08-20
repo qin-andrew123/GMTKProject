@@ -101,6 +101,7 @@ MonoBehaviour:
   bDoesRespawn: 1
   respawnTime: 3
   timeTillBreak: 1
+  breakSFX: {fileID: 8300000, guid: 3392ecafcb51035409a921c5a3a2d558, type: 3}
 --- !u!61 &3368881302656492961
 BoxCollider2D:
   m_ObjectHideFlags: 0

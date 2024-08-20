@@ -8,8 +8,10 @@ public class Ladder : MonoBehaviour
     [SerializeField] private GameObject extensionPrefab;
     [SerializeField] private CameraControlTrigger LookUpTrigger;
     [SerializeField] private int numLadderPerExtension;
+    [SerializeField] private AudioClip extensionSFX;
     private float yHeight = 0f;
     private Vector2 currentCenter;
+    private bool bIsFirstTime = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class Ladder : MonoBehaviour
         currentCenter = gameObject.transform.position;
         GlobalData.OnClearLevel += ExtendLadder;
         ExtendLadder();
+        bIsFirstTime = false;
     }
 
     private void OnDestroy()
@@ -30,6 +33,11 @@ public class Ladder : MonoBehaviour
     }
     private void ExtendLadder()
     {
+        if (!bIsFirstTime)
+        {
+            GlobalData.Instance.playerReference.GetComponent<AudioSource>().PlayOneShot(extensionSFX);
+            numLadderPerExtension /= 2;
+        }
         for (int i = 0; i < numLadderPerExtension; i++)
         {
             GameObject ladderSegment = Instantiate(extensionPrefab);
@@ -38,5 +46,6 @@ public class Ladder : MonoBehaviour
             currentCenter = extensionPosition;
             LookUpTrigger.transform.position = currentCenter;
         }
+
     }
 }
