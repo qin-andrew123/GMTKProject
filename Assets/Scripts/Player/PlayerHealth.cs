@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private Slider healthSliderUI;
     public static event Action OnPlayerDie;
+    public static event Action<int> OnPlayerHealthChanged;
     private int numInvulnSaves = 0;
     private bool bCanTakeDamage = true;
     public bool CanTakeDamage
@@ -19,18 +19,9 @@ public class PlayerHealth : MonoBehaviour
     private float invulnTime;
     private void InitializeStats()
     {
-
         currentHealth = GlobalData.Instance.GetInitMaxHealth();
         maxHealth = GlobalData.Instance.GetInitMaxHealth();
         invulnTime = GlobalData.Instance.GetInvulnerabilityTime();
-        if (!healthSliderUI)
-        {
-            Debug.LogError("No reference for health slider ui. make sure to set it");
-            return;
-        }
-
-        healthSliderUI.maxValue = GlobalData.Instance.GetInitMaxHealth();
-        healthSliderUI.value = currentHealth;
     }
 
     void Start()
@@ -54,21 +45,12 @@ public class PlayerHealth : MonoBehaviour
     {
         maxHealth += amount;
         currentHealth = maxHealth;
-        UpdateHealthUI();
+        OnPlayerHealthChanged?.Invoke(maxHealth);
     }
     private void UpdateImmunities(Upgrade type, int amount)
     {
         numInvulnSaves = amount;
     }
-    public void UpdateHealthUI()
-    {
-        if (healthSliderUI.maxValue != maxHealth)
-        {
-            healthSliderUI.maxValue = maxHealth;
-        }
-        healthSliderUI.value = currentHealth;
-    }
-
     public void ResetInvulnSaves()
     {
         Player player = GetComponent<Player>();
@@ -87,7 +69,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currentHealth += inputAmount;
-        UpdateHealthUI();
+        OnPlayerHealthChanged?.Invoke(currentHealth);
         StartCoroutine(InvulnerabilityTime(invulnTime));
 
         if (currentHealth <= 0)
@@ -99,7 +81,7 @@ public class PlayerHealth : MonoBehaviour
     private void ResetPlayerHealth()
     {
         currentHealth = maxHealth;
-        UpdateHealthUI();
+        OnPlayerHealthChanged?.Invoke(maxHealth);
         ResetInvulnSaves();
     }
     public void CallInvulnerability(float inputTime)
