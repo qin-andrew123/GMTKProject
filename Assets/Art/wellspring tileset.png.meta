@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,532 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: wellspring tileset_1
+      rect:
+        serializedVersion: 2
+        x: 3806
+        y: 1046
+        width: 351
+        height: 487
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb24141a11ab00548bb02672b3064dd3
+      internalID: 1687928353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_2
+      rect:
+        serializedVersion: 2
+        x: 4213
+        y: 1064
+        width: 296
+        height: 494
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f572524ce126c604d87cd00b8d53d1ea
+      internalID: 1493381196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_3
+      rect:
+        serializedVersion: 2
+        x: 2254
+        y: 658
+        width: 156
+        height: 821
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8004625d0b80fb147951a12b9e69c0f7
+      internalID: -953384502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_4
+      rect:
+        serializedVersion: 2
+        x: 2514
+        y: 723
+        width: 183
+        height: 724
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0ef59c597625494a8b8b68a96d7c0f1
+      internalID: -446906810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_10
+      rect:
+        serializedVersion: 2
+        x: 3056
+        y: 1327
+        width: 692
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96c59af3ab4fb794aab244ba4d2f9589
+      internalID: -1508182111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_11
+      rect:
+        serializedVersion: 2
+        x: 4539
+        y: 1219
+        width: 466
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d02d24f9c994bc947accf99aef16d8b1
+      internalID: 1042064608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_12
+      rect:
+        serializedVersion: 2
+        x: 5108
+        y: 566
+        width: 541
+        height: 881
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7ce8761a3f9a3f4db501b27a270f4f0
+      internalID: 1167653069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_13
+      rect:
+        serializedVersion: 2
+        x: 5792
+        y: 544
+        width: 358
+        height: 906
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 303649f6874bc4241a4749abf327f371
+      internalID: 1711389429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_14
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 312
+        width: 1929
+        height: 1088
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f24f31f5be8d5f4cb3f276668452094
+      internalID: -888972591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_15
+      rect:
+        serializedVersion: 2
+        x: 2038
+        y: 972
+        width: 54
+        height: 390
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62555e33fb672124a87c60273cd6904a
+      internalID: 41512296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_16
+      rect:
+        serializedVersion: 2
+        x: 2149
+        y: 1045
+        width: 79
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9598bf1665ea1f6438b6af2d82025660
+      internalID: -1162580340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_17
+      rect:
+        serializedVersion: 2
+        x: 2765
+        y: 826
+        width: 594
+        height: 401
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5f0d6c39eb603847aaabb8ef36ce441
+      internalID: 795164747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_18
+      rect:
+        serializedVersion: 2
+        x: 3397
+        y: 1105
+        width: 304
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3046e9ad202133143b16d029c19d49aa
+      internalID: -1720580554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_19
+      rect:
+        serializedVersion: 2
+        x: 4683
+        y: 740
+        width: 257
+        height: 390
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05c47fd3f2e77d5409dd73172aef5364
+      internalID: 1468882661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_20
+      rect:
+        serializedVersion: 2
+        x: 3435
+        y: 839
+        width: 241
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 171aa15bcfbe26a44ab6b66fa51521e0
+      internalID: -1280593137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_21
+      rect:
+        serializedVersion: 2
+        x: 4260
+        y: 992
+        width: 7
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21b503207e02b5c418c49f4784c6e203
+      internalID: -1253356864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_22
+      rect:
+        serializedVersion: 2
+        x: 3724
+        y: 832
+        width: 882
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc8fc89c4eaa00e459d9e3bf54a84348
+      internalID: -153387063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_25
+      rect:
+        serializedVersion: 2
+        x: 3239
+        y: 518
+        width: 1270
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f062ae960a6d8749bd79d470ca26f06
+      internalID: -1845447897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_27
+      rect:
+        serializedVersion: 2
+        x: 2739
+        y: 534
+        width: 392
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daa71267e3f7a7f4c8d248b46939b2f9
+      internalID: 1329135949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_28
+      rect:
+        serializedVersion: 2
+        x: 2017
+        y: 484
+        width: 574
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40ab6d593b059954b87383cac3ad5a98
+      internalID: 1645904556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_29
+      rect:
+        serializedVersion: 2
+        x: 2343
+        y: 179
+        width: 1950
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aa04f385f2cf174b8a5ab96b0b64966
+      internalID: 1637762277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_30
+      rect:
+        serializedVersion: 2
+        x: 4500
+        y: 142
+        width: 1928
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19e19e2b8ff5b9f40a66fb6e3ad4b82e
+      internalID: -1093759250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_31
+      rect:
+        serializedVersion: 2
+        x: 4504
+        y: 89
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f47c29af2c5d5ed4da613d8f9be4ce14
+      internalID: -1778560935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_0
+      rect:
+        serializedVersion: 2
+        x: 2927
+        y: 1255
+        width: 73
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a1e0c733ba397f44b30b910e2430f4d
+      internalID: -112104979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wellspring tileset_5
+      rect:
+        serializedVersion: 2
+        x: 2783
+        y: 1281
+        width: 118
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0095369cd75d4d46bebefd5bcb78f6e
+      internalID: 1870521103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +644,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wellspring tileset_0: -112104979
+      wellspring tileset_1: 1687928353
+      wellspring tileset_10: -1508182111
+      wellspring tileset_11: 1042064608
+      wellspring tileset_12: 1167653069
+      wellspring tileset_13: 1711389429
+      wellspring tileset_14: -888972591
+      wellspring tileset_15: 41512296
+      wellspring tileset_16: -1162580340
+      wellspring tileset_17: 795164747
+      wellspring tileset_18: -1720580554
+      wellspring tileset_19: 1468882661
+      wellspring tileset_2: 1493381196
+      wellspring tileset_20: -1280593137
+      wellspring tileset_21: -1253356864
+      wellspring tileset_22: -153387063
+      wellspring tileset_23: -1969381659
+      wellspring tileset_24: 554454603
+      wellspring tileset_25: -1845447897
+      wellspring tileset_26: -1430772119
+      wellspring tileset_27: 1329135949
+      wellspring tileset_28: 1645904556
+      wellspring tileset_29: 1637762277
+      wellspring tileset_3: -953384502
+      wellspring tileset_30: -1093759250
+      wellspring tileset_31: -1778560935
+      wellspring tileset_4: -446906810
+      wellspring tileset_5: 1870521103
+      wellspring tileset_6: -166352420
+      wellspring tileset_7: -1734024242
+      wellspring tileset_8: -1362268196
+      wellspring tileset_9: -365635176
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
