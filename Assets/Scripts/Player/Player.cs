@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
     {
         UpgradeData upgrade;
         GlobalData.Instance.upgradeDataDict.TryGetValue(eUpgradeType, out upgrade);
-        if(!upgrade)
+        if (!upgrade)
         {
             Debug.LogError("Error: Global Data singleton could not find this upgrade type");
         }
@@ -167,16 +167,17 @@ public class Player : MonoBehaviour
                 default:
                     break;
             }
-            if(obstacleImmunityLevel > 2)
+            if (obstacleImmunityLevel > 2)
             {
                 obstacleImmunityLevel = 2;
             }
-            if(obstacleImmunityLevel != 0 && eUpgradeType == Upgrade.FragileCap || eUpgradeType == Upgrade.BronzeHelmet)
+            if (obstacleImmunityLevel != 0 && eUpgradeType == Upgrade.FragileCap || eUpgradeType == Upgrade.BronzeHelmet)
             {
                 OnUpgradePurchased?.Invoke(eUpgradeType, obstacleImmunityLevel);
             }
 
             GlobalData.Instance.purchasedUpgrades.Add(eUpgradeType);
+            GlobalData.Instance.AdjustCurrency(currentCurrency - upgradeCost);
         }
 
     }
@@ -184,7 +185,7 @@ public class Player : MonoBehaviour
     {
         scalesCounter.GetComponentInChildren<TextMeshProUGUI>().SetText(GlobalData.Instance.GetCurrencyType().ToString() + ": " + GlobalData.Instance.GetCurrency());
     }
-    
+
 
     private void OnDestroy()
     {

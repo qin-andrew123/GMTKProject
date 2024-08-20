@@ -113,7 +113,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.54085445}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -166,11 +166,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3082223645534217053, guid: 62b2cc5639562e943967a9aeae9c4783, type: 3}
       propertyPath: m_Offset.x
-      value: -1.3332558
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3082223645534217053, guid: 62b2cc5639562e943967a9aeae9c4783, type: 3}
       propertyPath: m_Offset.y
-      value: 0.49379826
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4855850894949886655, guid: 62b2cc5639562e943967a9aeae9c4783, type: 3}
       propertyPath: cameraControlOptions.swapCameras

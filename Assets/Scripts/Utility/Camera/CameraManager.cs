@@ -186,7 +186,7 @@ public class CameraManager : MonoBehaviour
         IsLerpingYDamping = false;
     }
 
-    public void SwapCamera(CinemachineVirtualCamera leftCamera, CinemachineVirtualCamera rightCamera, Vector2 triggerExitDirection)
+    public bool SwapCamera(CinemachineVirtualCamera leftCamera, CinemachineVirtualCamera rightCamera, Vector2 triggerExitDirection)
     {
         if (currentCamera == leftCamera && triggerExitDirection.x > 0)
         {
@@ -194,7 +194,6 @@ public class CameraManager : MonoBehaviour
             leftCamera.enabled = false;
             currentCamera = rightCamera;
             framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-
             // Update ambient audio
             if (currentCamera == allVirtualCameras[0])   // in main pit
             {
@@ -207,6 +206,9 @@ public class CameraManager : MonoBehaviour
                 playerAudioSource.clip = waterAudio;
                 playerAudioSource.Play();
             }
+            
+            CameraManager.Instance.UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
+            return true;
         }
         else if (currentCamera == rightCamera && triggerExitDirection.x < 0)
         {
@@ -214,7 +216,6 @@ public class CameraManager : MonoBehaviour
             rightCamera.enabled = false;
             currentCamera = leftCamera;
             framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-
             // Update ambient audio
             if (currentCamera == allVirtualCameras[0])   // in main pit
             {
@@ -227,7 +228,10 @@ public class CameraManager : MonoBehaviour
                 playerAudioSource.clip = waterAudio;
                 playerAudioSource.Play();
             }
+            
+            CameraManager.Instance.UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
+            return true;
         }
-        CameraManager.Instance.UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
+        return false;
     }
 }
