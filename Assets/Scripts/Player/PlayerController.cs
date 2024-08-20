@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IPlayerController
 {
     [SerializeField] private PlayerControllerStats _stats;
+    [SerializeField] private GameObject omnitool;
     private Player player;
     private float fallSpeedYDampingThreshold;
     private Rigidbody2D _rb;
@@ -102,7 +103,9 @@ public class PlayerController : MonoBehaviour, IPlayerController
         {
             frameMouseInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             frameMouseInput.Normalize();
-            Debug.Log(frameMouseInput);
+            omnitool.SetActive(true);
+            omnitool.GetComponent<Animator>().Play("Omnitool");
+            StartCoroutine(ToolAnim());
             MineBlock();
         }
 
@@ -134,6 +137,22 @@ public class PlayerController : MonoBehaviour, IPlayerController
         if (playerAnimator != null)
         {
             playerAnimator.SetFloat("PlayerHorizontalSpeed", Mathf.Abs(_frameInput.Move.x));
+            playerAnimator.SetFloat("PlayerVerticalSpeed", Mathf.Abs(_frameInput.Move.y));
+        }
+
+        if (_frameInput.Move.x < 0)
+        {
+            SpriteRenderer spriteComponent = GetComponent<SpriteRenderer>();
+            spriteComponent.flipX = true;
+            omnitool.transform.localPosition = new Vector2(-1, omnitool.transform.localPosition.y);
+            omnitool.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (_frameInput.Move.x > 0)
+        {
+            SpriteRenderer spriteComponent = GetComponent<SpriteRenderer>();
+            spriteComponent.flipX = false;
+            omnitool.transform.localPosition = new Vector2(1, omnitool.transform.localPosition.y);
+            omnitool.GetComponent<SpriteRenderer>().flipX = true;
         }
         if (_frameInput.Move.x != 0)
         {
@@ -183,6 +202,12 @@ public class PlayerController : MonoBehaviour, IPlayerController
                 breakableBlockComponent.AttemptBreakBlock(player.ObstacleDestructionLevel);
             }
         }
+    }
+
+    private IEnumerator ToolAnim()
+    {
+        yield return new WaitForSeconds(0.5f);
+        omnitool.SetActive(false);
     }
     private void FixedUpdate()
     {
@@ -265,13 +290,28 @@ public class PlayerController : MonoBehaviour, IPlayerController
             _endedJumpEarly = false;
             numJumps = numJumpsTotal;
             GroundedChanged?.Invoke(true, Mathf.Abs(_frameVelocity.y));
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("PlayerIsJumping", false);
+            }
         }
         // Left the Ground and is not climbing
         else if (_grounded && !groundHit && !bCanClimb)
         {
             _grounded = false;
             _frameLeftGrounded = _time;
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("PlayerIsJumping", true);
+            }
             GroundedChanged?.Invoke(false, 0);
+        }
+        if (bCanClimb)
+        {
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("PlayerIsJumping", false);
+            }
         }
 
         Physics2D.queriesStartInColliders = _cachedQueryStartInColliders;
@@ -340,7 +380,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         _coyoteUsable = false;
         _frameVelocity.y = _stats.JumpPower;
         numJumps--;
-        Jumped?.Invoke();
+
     }
 
     #endregion
@@ -388,10 +428,6 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private void ApplyMovement()
     {
         _rb.velocity = _frameVelocity;
-        if (playerAnimator != null)
-        {
-            playerAnimator.SetFloat("PlayerVerticalSpeed", _rb.velocity.y);
-        }
     }
 
     #region Harvesting

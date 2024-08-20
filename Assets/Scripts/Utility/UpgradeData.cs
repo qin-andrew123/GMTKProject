@@ -10,6 +10,6 @@ public class UpgradeData : ScriptableObject
     public string upgradeName;
     public string upgradeDescription;
     public int currencyCost;
-    public Image upgradeImage;
-    public Image costImage;
+    public Sprite upgradeImage;
+    public Sprite costImage;
 }

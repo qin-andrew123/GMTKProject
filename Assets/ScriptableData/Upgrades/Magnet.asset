@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 14
   upgradeName: Ferrofluid
   upgradeDescription: 'Scales magnetize to you. '
-  currencyCost: 0
-  upgradeImage: {fileID: 0}
-  costImage: {fileID: 0}
+  currencyCost: 15
+  upgradeImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}
+  costImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}

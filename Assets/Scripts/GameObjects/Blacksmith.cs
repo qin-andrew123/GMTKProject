@@ -32,8 +32,8 @@ public class Blacksmith : MonoBehaviour
             string upgradeName = upgrades[i].upgradeName;
             string upgradeDesc = upgrades[i].upgradeDescription;
             int upgradeCost = upgrades[i].currencyCost;
-            Image upgradeImage = upgrades[i].upgradeImage;
-            Image costImage = upgrades[i].costImage;
+            Sprite upgradeImage = upgrades[i].upgradeImage;
+            Sprite costImage = upgrades[i].costImage;
 
             GameObject uiPrefab = Instantiate(uiUpgradePrefab);
             uiPrefab.transform.SetParent(slidingUIImage.transform, false);

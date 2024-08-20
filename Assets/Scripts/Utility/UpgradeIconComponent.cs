@@ -13,10 +13,10 @@ public class UpgradeIconComponent : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeName;
     [SerializeField] private TextMeshProUGUI upgradeCost;
     private Upgrade upgradeType;
-    public void InitializeComponents(Image inputImage, Image costInputImage, string description, string name, string cost, Upgrade eUpgradeType)
+    public void InitializeComponents(Sprite inputImage, Sprite costInputImage, string description, string name, string cost, Upgrade eUpgradeType)
     {
-        upgradeImage = inputImage;
-        costImage = costInputImage;
+        upgradeImage.sprite = inputImage;
+        costImage.sprite = costInputImage;
         upgradeDescription.text = description;
         upgradeName.text = name;
         upgradeCost.text = cost;
