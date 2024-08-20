@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 3502878380438000675}
   - component: {fileID: 1344656670992016608}
   m_Layer: 10
-  m_Name: ResourceNode
+  m_Name: LootResourceNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,8 +247,8 @@ SpriteRenderer:
   m_SortingLayerID: 1809160169
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 3625043607559282579, guid: 045b15ec09bba42448d89db77fa6f20a, type: 3}
+  m_Color: {r: 1, g: 0.7536457, b: 0.15566039, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
