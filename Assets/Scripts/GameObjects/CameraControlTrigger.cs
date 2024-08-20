@@ -8,6 +8,7 @@ public class CameraControlTrigger : MonoBehaviour
     private Collider2D triggerCollider2D;
     private ZoneSwapperComponent zoneSwapperComponent;
     private bool bDoesHaveParent = false;
+    private bool bWasSwapSuccessful = false;
     private void Start()
     {
         zoneSwapperComponent = GetComponentInParent<ZoneSwapperComponent>();
@@ -50,11 +51,12 @@ public class CameraControlTrigger : MonoBehaviour
             else if (cameraControlOptions.swapCameras && cameraControlOptions.cameraOnLeft && cameraControlOptions.cameraOnRight)
             {
                 Vector2 exitDirection = (collision.transform.position - triggerCollider2D.bounds.center).normalized;
-                if (bDoesHaveParent)
+                
+                bWasSwapSuccessful = CameraManager.Instance.SwapCamera(cameraControlOptions.cameraOnLeft, cameraControlOptions.cameraOnRight, exitDirection);
+                if (bDoesHaveParent && bWasSwapSuccessful)
                 {
                     zoneSwapperComponent.TriggerActivated();
                 }
-                CameraManager.Instance.SwapCamera(cameraControlOptions.cameraOnLeft, cameraControlOptions.cameraOnRight, exitDirection);
             }
         }
     }

@@ -40,10 +40,12 @@ public class GlobalData : MonoBehaviour
     {
         if (playerStats.numCurrency + amountToAdjust != playerStats.numCurrency)
         {
+            playerStats.numCurrency += amountToAdjust;
             OnCurrencyAmountChange?.Invoke();
         }
-        playerStats.numCurrency += amountToAdjust;
+        
     }
+
     private void Awake()
     {
         if (Instance == null)
@@ -54,6 +56,7 @@ public class GlobalData : MonoBehaviour
         {
             upgradeDataDict.Add(ud.upgradeType, ud);
         }
+        playerStats.numCurrency = 0;
     }
     public static event Action<Upgrade> OnPurchaseUpgrade;
 
