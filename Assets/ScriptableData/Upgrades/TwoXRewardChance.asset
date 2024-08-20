@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 13
   upgradeName: Lucky Clove
   upgradeDescription: 'You sometimes gain more reward at the end of the cave. '
-  currencyCost: 30
+  currencyCost: 14
   upgradeImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}
   costImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}

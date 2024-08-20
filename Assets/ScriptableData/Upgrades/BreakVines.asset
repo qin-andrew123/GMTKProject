@@ -15,6 +15,6 @@ MonoBehaviour:
   upgradeType: 6
   upgradeName: Bladed Omnitool
   upgradeDescription: Your Omnitool can destroy vines
-  currencyCost: 52
+  currencyCost: 42
   upgradeImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}
   costImage: {fileID: 21300000, guid: 22fb99527bfa988459b03e9fc830fa48, type: 3}
