@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ef95adb697306ba438421ce972fb9d56
+guid: a38d21c1a28852e4584c3f806e2e1542
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 48
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: misc tileset_0
+      name: runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_0
       rect:
         serializedVersion: 2
-        x: 70
-        y: 871
-        width: 478
-        height: 91
+        x: 29
+        y: 297
+        width: 165
+        height: 251
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a523c8e9f01cc64a82014fd3867b4c5
-      internalID: 115351165
+      spriteID: 6ea328baae5a3e24b92e837fd3148792
+      internalID: 589819294
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: misc tileset_1
+      name: runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_1
       rect:
         serializedVersion: 2
-        x: 698
-        y: 518
-        width: 400
-        height: 528
+        x: 257
+        y: 298
+        width: 166
+        height: 248
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11c8cc717a774e54ca50525235c2300a
-      internalID: 703779797
+      spriteID: 13abc6ceaac6c7340bd8da74edd5dc0d
+      internalID: 1324465857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: misc tileset_2
+      name: runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_2
       rect:
         serializedVersion: 2
-        x: 1082
-        y: 746
-        width: 645
-        height: 407
+        x: 486
+        y: 297
+        width: 166
+        height: 247
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6406feb4ca1a17947b8b2aa6c2ef44bf
-      internalID: 51456773
+      spriteID: 5d13b03530a8bb9439ef0321ea176c41
+      internalID: -1260860085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: misc tileset_3
+      name: runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_3
       rect:
         serializedVersion: 2
-        x: 1865
-        y: 525
-        width: 420
-        height: 419
+        x: 714
+        y: 296
+        width: 165
+        height: 248
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62eaff8f52ffc8144a917a6d86b673e8
-      internalID: -1298599289
+      spriteID: ed2e93ce40377f64c9665c1066f861b4
+      internalID: 476851048
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: misc tileset_4
+      name: runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_4
       rect:
         serializedVersion: 2
-        x: 2367
-        y: 526
-        width: 421
-        height: 421
+        x: 942
+        y: 296
+        width: 165
+        height: 248
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 689a6c65b1f24f54caadf880194d62b4
-      internalID: 1786788808
+      spriteID: d1636c82f9e55e04d9dc3010270171d4
+      internalID: -1839773467
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: misc tileset_5
+      name: runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_5
       rect:
         serializedVersion: 2
-        x: 249
-        y: 770
-        width: 7
-        height: 8
+        x: 31
+        y: 14
+        width: 163
+        height: 246
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,92 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbfb5cbbdad4edb458826b66dfbba02e
-      internalID: 1892938202
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: misc tileset_6
-      rect:
-        serializedVersion: 2
-        x: 278
-        y: 483
-        width: 94
-        height: 359
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 97c36894ee27c944cb0a92f621e08042
-      internalID: 682670021
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: misc tileset_7
-      rect:
-        serializedVersion: 2
-        x: 1228
-        y: 472
-        width: 164
-        height: 284
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc46f5aa570fe66429582f8a0024a106
-      internalID: 2070741088
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: misc tileset_8
-      rect:
-        serializedVersion: 2
-        x: 375
-        y: 347
-        width: 1309
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 797e35e9f627f4e46baebfe14ef1229c
-      internalID: 232312126
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: misc tileset_9
-      rect:
-        serializedVersion: 2
-        x: 369
-        y: 83
-        width: 2013
-        height: 189
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4461aaab1221f4247992acb24c526c0b
-      internalID: -1065902006
+      spriteID: 7a0da0ec302dff44f881daf190a938c3
+      internalID: 151880098
       vertices: []
       indices: 
       edges: []
@@ -330,16 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      misc tileset_0: 115351165
-      misc tileset_1: 703779797
-      misc tileset_2: 51456773
-      misc tileset_3: -1298599289
-      misc tileset_4: 1786788808
-      misc tileset_5: 1892938202
-      misc tileset_6: 682670021
-      misc tileset_7: 2070741088
-      misc tileset_8: 232312126
-      misc tileset_9: -1065902006
+      runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_0: 589819294
+      runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_1: 1324465857
+      runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_2: -1260860085
+      runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_3: 476851048
+      runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_4: -1839773467
+      runcycle-adadaadadada-ezgif.com-gif-to-sprite-converter_5: 151880098
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

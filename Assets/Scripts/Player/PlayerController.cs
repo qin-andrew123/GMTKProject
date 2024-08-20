@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private bool bSlidingOnIce = false;
     private Vector2 frameMouseInput;
     private bool bCanBreakBlock = true;
+    private Animator playerAnimator;
     public bool SlidingOnIce
     {
         set { bSlidingOnIce = value; }
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         _col = GetComponent<CapsuleCollider2D>();
 
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
+        playerAnimator = GetComponent<Animator>();
     }
     private void Start()
     {
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             return;
         }
         GatherInput();
-        
+
         if (Input.GetButtonDown("Interact"))
         {
             Debug.Log("Interact Button Pressed: Sending Signal");
@@ -129,6 +131,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
             Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
         };
 
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetFloat("PlayerHorizontalSpeed", Mathf.Abs(_frameInput.Move.x));
+        }
         if (_frameInput.Move.x != 0)
         {
             lookDirection.x = _frameInput.Move.x;
@@ -379,7 +385,14 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
     #endregion
 
-    private void ApplyMovement() => _rb.velocity = _frameVelocity;
+    private void ApplyMovement()
+    {
+        _rb.velocity = _frameVelocity;
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetFloat("PlayerVerticalSpeed", _rb.velocity.y);
+        }
+    }
 
     #region Harvesting
     public static event Action<GameObject> PlayerAttemptHarvest;
