@@ -15,7 +15,7 @@ MonoBehaviour:
   interactDistance: 3
   maxHealth: 10
   invulnerabilityTime: 0.5
-  numCurrency: 0
+  numCurrency: 9
   currencyType: 0
   playerUpgrades:
   - {fileID: 11400000, guid: 08a29ba87b1bb3342b15da3e6ae30795, type: 2}
