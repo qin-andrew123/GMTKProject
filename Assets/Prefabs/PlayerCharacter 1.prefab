@@ -120,6 +120,7 @@ MonoBehaviour:
   _stats: {fileID: 11400000, guid: 7044d9f7c2252cb48923700a4c7cc9cf, type: 2}
   omnitool: {fileID: 175790540055076013}
   jumpSFX: {fileID: 8300000, guid: 3ea409d546e644e4da1afa63f0d0b900, type: 3}
+  omniSFX: {fileID: 8300000, guid: 767e9012c9e92b54fb35de0319d159a2, type: 3}
   interactString: Interact [H]
   breakableString: Break [Left Click]
 --- !u!114 &941884088552484483
@@ -134,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb93a74cda0bb24885ad8f66b0af486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invulnBreakSFX: {fileID: 8300000, guid: c3d648b75f9852b4aa274e92e8e5498c, type: 3}
   deathSFX: {fileID: 8300000, guid: 8ffa1d4b858cacc4ebdd4a421ea24d99, type: 3}
 --- !u!50 &8206047892400669160
 Rigidbody2D:
@@ -230,7 +232,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

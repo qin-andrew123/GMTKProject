@@ -37,20 +37,15 @@ public class ReformingObstacleManager : MonoBehaviour
         {
             reformingObstacles[index].SetActive(false);
         }
-        else
-        {
-            StartCoroutine(DestroyObject(timeToBreak, index));
-        }
-        if (bDoesRespawn && bReadyToRespawn)
-        {
-            StartCoroutine(RespawnObject(input.RespawnTime, index));
-        }
+
+        StartCoroutine(DestroyAndReformObject(timeToBreak, input.RespawnTime, index));
+        
     }
-    private IEnumerator DestroyObject(float timeToBreak, int index)
+    private IEnumerator DestroyAndReformObject(float timeToBreak, float timeToRespawn, int index)
     {
         yield return new WaitForSeconds(timeToBreak);
         reformingObstacles[index].SetActive(false);
-        bReadyToRespawn = true;
+        StartCoroutine(RespawnObject(timeToRespawn, index));
     }
     private IEnumerator RespawnObject(float reformTime, int index)
     {

@@ -64,7 +64,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void UpdateImmunities(Upgrade type, int amount)
     {
-        if (type != Upgrade.BronzeHelmet || type != Upgrade.FragileCap)
+        if (type != Upgrade.BronzeHelmet && type != Upgrade.FragileCap)
         {
             return;
         }
