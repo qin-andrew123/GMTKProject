@@ -116,6 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 7044d9f7c2252cb48923700a4c7cc9cf, type: 2}
+  jumpSFX: {fileID: 8300000, guid: 3ea409d546e644e4da1afa63f0d0b900, type: 3}
+  doubleJumpSFX: {fileID: 8300000, guid: 9d5bef28726de094abec16a9c2fab546, type: 3}
   interactString: Interact [H]
   breakableString: Break [Left Click]
 --- !u!114 &3134233304359640113
