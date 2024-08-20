@@ -9,6 +9,7 @@ public class Ladder : MonoBehaviour
     [SerializeField] private CameraControlTrigger LookUpTrigger;
     [SerializeField] private int numLadderPerExtension;
     [SerializeField] private AudioClip extensionSFX;
+    private int halvedLadder;
     private float yHeight = 0f;
     private Vector2 currentCenter;
     private bool bIsFirstTime = true;
@@ -25,6 +26,7 @@ public class Ladder : MonoBehaviour
         GlobalData.OnClearLevel += ExtendLadder;
         ExtendLadder();
         bIsFirstTime = false;
+        halvedLadder = numLadderPerExtension / 2;
     }
 
     private void OnDestroy()
@@ -36,7 +38,7 @@ public class Ladder : MonoBehaviour
         if (!bIsFirstTime)
         {
             GlobalData.Instance.playerReference.GetComponent<AudioSource>().PlayOneShot(extensionSFX);
-            numLadderPerExtension /= 2;
+            numLadderPerExtension = halvedLadder;
         }
         for (int i = 0; i < numLadderPerExtension; i++)
         {

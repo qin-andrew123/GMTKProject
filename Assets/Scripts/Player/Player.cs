@@ -177,7 +177,7 @@ public class Player : MonoBehaviour
             }
 
             GlobalData.Instance.purchasedUpgrades.Add(eUpgradeType);
-            GlobalData.Instance.AdjustCurrency(-(currentCurrency - upgradeCost));
+            GlobalData.Instance.AdjustCurrency(-upgradeCost);
         }
 
     }
