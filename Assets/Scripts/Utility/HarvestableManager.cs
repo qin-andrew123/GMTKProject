@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class HarvestableManager : MonoBehaviour
 {
-    [SerializeField] private bool bIsResourceNodesWeighted = false;
     [Tooltip("These are the harvest nodes that you want to manage. If Weighted, Make sure that resource nodes are placed heaviest weight first, lightest last")]
     [SerializeField] private List<GameObject> ResourceNodes = new List<GameObject>();
-    [Tooltip("These are the weights attached to each resource node (Make sure that resource nodes are placed heaviest weight first, lightest last)")]
-    [SerializeField] private List<int> ResourceNodeWeights = new List<int>();
     [SerializeField] private int numNodesToActivate = 1;
-    [SerializeField] private float respawnTime = 1.0f;
-    private int totalWeight = 0;
-   
-    // indices of active nodes and inactiveNodes
-    private List<int> activeNodes = new List<int>();
-    private List<int> inactiveNodes = new List<int>();
-    private Dictionary<GameObject, int> nodeActiveIndex = new Dictionary<GameObject, int>();
+    private Dictionary<GameObject, int> nodeIndex = new Dictionary<GameObject, int>();
     // Start is called before the first frame update
     void Start()
     {
-        foreach(var node in ResourceNodes)
+        foreach (var node in ResourceNodes)
         {
-            node.SetActive(false);
+            node.SetActive(true);
         }
         Harvestable.OnHarvest += TurnOffNode;
         SpawnPortalComponent.OnTravellingToSpawn += ChooseNodesToActivate;
@@ -36,82 +27,40 @@ public class HarvestableManager : MonoBehaviour
     }
     private void ChooseNodesToActivate()
     {
-        // We want to reset on respawn/ return to base
-        if(nodeActiveIndex.Count > 0)
+        // We want to reset on respawn / return to base
+        if (nodeIndex.Count > 0)
         {
-            nodeActiveIndex.Clear();
-            activeNodes.Clear();
-            inactiveNodes.Clear();
+            nodeIndex.Clear();
         }
-        
-        if(bIsResourceNodesWeighted)
-        {
-            foreach(int i in ResourceNodeWeights)
-            {
-                totalWeight += i;
-            }
 
-            for(int i = 0; i < numNodesToActivate; ++i)
+        // Add spawned nodes 
+        for (int i = 0; i < ResourceNodes.Count; ++i)
+        {
+            if (!ResourceNodes[i].activeInHierarchy)
             {
-                int randomWeight = UnityEngine.Random.Range(0, totalWeight);
-                int currentWeight = 0;
-                for(int j = 0; j < ResourceNodeWeights.Count; ++j)
+                if (ResourceNodes[i].GetComponent<Harvestable>())
                 {
-                    if(ResourceNodes[j].activeInHierarchy)
+                    if (ResourceNodes[i].GetComponent<Harvestable>().CanRespawn)
                     {
-                        continue;
-                    }
-                    currentWeight += ResourceNodeWeights[j];
-                    if(currentWeight <= randomWeight)
-                    {
-                        ResourceNodes[j].SetActive(true);
-                        break;
+                        ResourceNodes[i].SetActive(true);
+                        nodeIndex.Add(ResourceNodes[i], i);
                     }
                 }
-            }
-        }
-
-        // Update and separate which nodes are active vs which are inactive
-        for(int i = 0; i < ResourceNodes.Count; ++i)
-        {
-            if(ResourceNodes[i].activeInHierarchy)
-            {
-                activeNodes.Add(i);
             }
             else
             {
-                inactiveNodes.Add(i);
-            }
-        }
-
-        // Add a remaining number of nodes based on how many nodes left we have to activate
-        int currentActiveNodes = activeNodes.Count;
-        while (currentActiveNodes < numNodesToActivate)
-        {
-            for (int i = 0; i < inactiveNodes.Count; ++i)
-            {
-                float random = UnityEngine.Random.Range(0f, 1f);
-                if (random < 0.3f && !ResourceNodes[inactiveNodes[i]].activeInHierarchy)
+                if (!nodeIndex.ContainsKey(ResourceNodes[i]))
                 {
-                    activeNodes.Add(inactiveNodes[i]);
-                    ResourceNodes[inactiveNodes[i]].SetActive(true);
-                    ++currentActiveNodes;
-                    break;
+                    nodeIndex.Add(ResourceNodes[i], i);
                 }
             }
-        }
-
-        for (int i = 0; i < activeNodes.Count; ++i)
-        {
-            ResourceNodes[activeNodes[i]].SetActive(true);
-            nodeActiveIndex.Add(ResourceNodes[activeNodes[i]], activeNodes[i]);
         }
     }
 
 
     private void TurnOffNode(GameObject node)
     {
-        if (nodeActiveIndex.ContainsKey(node))
+        if (nodeIndex.ContainsKey(node))
         {
             Debug.Log("Harvest Manager Received Harvest Call. Turning off:" + node.name);
             node.SetActive(false);
@@ -133,7 +82,7 @@ public class HarvestableManager : MonoBehaviour
             Harvestable harvestable = node.GetComponent<Harvestable>();
             if (!harvestable)
             {
-                Debug.LogWarning("Error: " + node.name + " does not have a harvestable script attached. make sure this is something you want in this list"); 
+                Debug.LogWarning("Error: " + node.name + " does not have a harvestable script attached. make sure this is something you want in this list");
             }
         }
     }
