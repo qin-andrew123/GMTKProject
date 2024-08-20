@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
         get { return bCanClimb; }
         set { bCanClimb = value; }
     }
+
+    [SerializeField] private string interactString = "Interact [H]";
+    [SerializeField] private string breakableString = "Break [Left Click]";
+
     #region Interface
 
     public Vector2 FrameInput => _frameInput.Move;
@@ -81,11 +85,23 @@ public class PlayerController : MonoBehaviour, IPlayerController
             return;
         }
         GatherInput();
-
-        if (Input.GetButtonDown("Harvest"))
+        
+        if (Input.GetButtonDown("Interact"))
         {
-            Debug.Log("Harvest Button Pressed: Sending Signal");
+            Debug.Log("Interact Button Pressed: Sending Signal");
             PlayerAttemptHarvest?.Invoke(gameObject);
+        }
+        if (Input.GetButtonDown("Interact"))
+        {
+            Debug.Log("Blacksmith Shop Button Pressed: Sending Signal");
+            PlayerAttemptShop?.Invoke(gameObject);
+        }
+        if (Input.GetButtonDown("Fire1") && bCanBreakBlock)
+        {
+            frameMouseInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            frameMouseInput.Normalize();
+            Debug.Log(frameMouseInput);
+            MineBlock();
         }
 
         if (_rb.velocity.y < fallSpeedYDampingThreshold && !CameraManager.Instance.IsLerpingYDamping && !CameraManager.Instance.LerpedFromPlayerFalling)
@@ -99,18 +115,6 @@ public class PlayerController : MonoBehaviour, IPlayerController
             CameraManager.Instance.LerpedFromPlayerFalling = false;
 
             CameraManager.Instance.LerpYDamping(false);
-        }
-        if (Input.GetButtonDown("Blacksmith"))
-        {
-            Debug.Log("Blacksmith Shop Button Pressed: Sending Signal");
-            PlayerAttemptShop?.Invoke(gameObject);
-        }
-        if (Input.GetButtonDown("Fire1") && bCanBreakBlock)
-        {
-            frameMouseInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            frameMouseInput.Normalize();
-            Debug.Log(frameMouseInput);
-            MineBlock();
         }
     }
 
@@ -145,7 +149,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             _jumpToConsume = true;
             _timeJumpWasPressed = _time;
         }
-        if (_frameInput.DashDown && bCanDashNow)
+        if (_frameInput.DashDown && bCanDashNow && !bSlidingOnIce)
         {
             bIsDashing = true;
             bCanDashNow = false;
@@ -249,7 +253,6 @@ public class PlayerController : MonoBehaviour, IPlayerController
         // Landed on the Ground
         if (!_grounded && groundHit)
         {
-            Debug.Log("A player has landed on the ground, jumps should reset now.");
             _grounded = true;
             _coyoteUsable = true;
             _bufferedJumpUsable = true;

@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     }
     private void ActivateLoadingScreen(float time)
     {
-        loadingScreenUI.SetActive(true);
         loadingScreenUI.GetComponent<LoadingScreenComponent>().LoadingTime = time;
+        loadingScreenUI.SetActive(true);
     }
 }

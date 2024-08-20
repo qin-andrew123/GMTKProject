@@ -12,7 +12,10 @@ public class GlobalData : MonoBehaviour
     public HashSet<Upgrade> purchasedUpgrades = new HashSet<Upgrade>();
     public static event Action OnCurrencyAmountChange;
     public static event Action OnClearLevel;
-
+    public float GetPlayerInteractDistance()
+    {
+        return playerStats.interactDistance;
+    }
     public CurrencyType GetCurrencyType()
     {
         return playerStats.currencyType;
@@ -27,7 +30,7 @@ public class GlobalData : MonoBehaviour
     }
     public int GetCurrency()
     {
-        return playerStats.numCurrency; 
+        return playerStats.numCurrency;
     }
     public float GetInvulnerabilityTime()
     {
@@ -35,7 +38,7 @@ public class GlobalData : MonoBehaviour
     }
     public void AdjustCurrency(int amountToAdjust)
     {
-        if(playerStats.numCurrency + amountToAdjust != playerStats.numCurrency)
+        if (playerStats.numCurrency + amountToAdjust != playerStats.numCurrency)
         {
             OnCurrencyAmountChange?.Invoke();
         }
@@ -43,11 +46,11 @@ public class GlobalData : MonoBehaviour
     }
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
-        foreach(UpgradeData ud in playerStats.playerUpgrades)
+        foreach (UpgradeData ud in playerStats.playerUpgrades)
         {
             upgradeDataDict.Add(ud.upgradeType, ud);
         }

@@ -31,14 +31,11 @@ public class CameraManager : MonoBehaviour
         {
             Instance = this;
         }
-        for (int i = 0; i < allVirtualCameras.Length; i++)
+        currentCamera = allVirtualCameras[0];
+        framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        for (int i = 1; i < allVirtualCameras.Length; i++)
         {
-            if (allVirtualCameras[i].enabled)
-            {
-                currentCamera = allVirtualCameras[i];
-                framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-                break;
-            }
+            allVirtualCameras[i].enabled = false;
         }
 
         normalYPanAmount = framingTransposer.m_YDamping;
@@ -52,7 +49,7 @@ public class CameraManager : MonoBehaviour
     }
     public void UpdateMainCamera(int cameraIndex)
     {
-        if(allVirtualCameras.Length <= cameraIndex)
+        if (allVirtualCameras.Length <= cameraIndex)
         {
             Debug.LogError("Error: Invalid camera index set. Make sure that you have the proper cameras set up in camera manager");
             return;
@@ -120,7 +117,7 @@ public class CameraManager : MonoBehaviour
         {
             if (iter == null) return;
             float distance = Vector3.Distance(iter.transform.position, position);
-            if (distance < optDistance)
+             if (distance < optDistance)
             {
                 bestCollider = iter;
                 optDistance = distance;

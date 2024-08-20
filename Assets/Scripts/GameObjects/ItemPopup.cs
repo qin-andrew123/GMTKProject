@@ -8,41 +8,30 @@ public class ItemPopup : MonoBehaviour
     [SerializeField] private float verticalOffset;
     [SerializeField] private float horizontalOffset;
     [SerializeField] private TextMeshPro displayTextName;
-    [SerializeField] private string displayText;
+    [SerializeField] private string DisplayText;
     private void Start()
     {
         Vector3 offset = new Vector2(horizontalOffset, verticalOffset);
-        displayTextName.text = displayText;
         displayTextName.transform.localPosition += offset;
+        displayTextName.text = DisplayText;
     }
     private void OnEnable()
     {
         displayTextName.gameObject.SetActive(false);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (!displayTextName.gameObject.activeInHierarchy)
-            {
-                displayTextName.gameObject.SetActive(true);
-            }
+            displayTextName.gameObject.SetActive(true);
         }
     }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (displayTextName.gameObject.activeInHierarchy)
-            {
-                displayTextName.gameObject.SetActive(false);
-            }
+            displayTextName.gameObject.SetActive(false);
         }
-    }
-
-    private void OnDisable()
-    {
-        displayTextName.gameObject.SetActive(false);
     }
 }

@@ -9,17 +9,16 @@ public class Blacksmith : MonoBehaviour
     [SerializeField] private GameObject BlacksmithUI;
     [SerializeField] private GameObject slidingUIImage;
     [SerializeField] private GameObject uiUpgradePrefab;
-    [SerializeField] private float activeDistance = 1.0f;
     [SerializeField] private float yPadding = 3.0f;
     public static event Action<bool> OnActivateBlacksmithUI;
     private float xStartingOffset = 8;
     private float yStartingOffset = 50f;
-    
+
     private void Start()
     {
         BlacksmithUI.SetActive(false);
         InitializeUI();
-        PlayerController.PlayerAttemptShop += QueryNearBlacksmith;  
+        PlayerController.PlayerAttemptShop += QueryNearBlacksmith;
     }
 
     private void InitializeUI()
@@ -38,10 +37,10 @@ public class Blacksmith : MonoBehaviour
 
             GameObject uiPrefab = Instantiate(uiUpgradePrefab);
             uiPrefab.transform.SetParent(slidingUIImage.transform, false);
-            
+
             uiPrefab.transform.localPosition = new Vector2(xStartingPosition, yStartingPosition);
 
-            uiPrefab.GetComponent<UpgradeIconComponent>().InitializeComponents(upgradeImage, costImage, upgradeDesc, upgradeName, upgradeCost.ToString(),upgradeType);
+            uiPrefab.GetComponent<UpgradeIconComponent>().InitializeComponents(upgradeImage, costImage, upgradeDesc, upgradeName, upgradeCost.ToString(), upgradeType);
 
             yStartingPosition -= (yStartingOffset + yPadding);
         }
@@ -52,15 +51,14 @@ public class Blacksmith : MonoBehaviour
     }
     private void QueryNearBlacksmith(GameObject player)
     {
-        Debug.Log("Running QNB");
         if (!player)
         {
             Debug.Log("Player is null uhoh");
             return;
         }
-        if(Vector2.Distance(player.transform.position, transform.position) < activeDistance)
+        if (Vector2.Distance(player.transform.position, transform.position) < GlobalData.Instance.GetPlayerInteractDistance())
         {
-            if(BlacksmithUI.activeInHierarchy)
+            if (BlacksmithUI.activeInHierarchy)
             {
                 BlacksmithUI.SetActive(false);
             }
@@ -74,7 +72,7 @@ public class Blacksmith : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject && collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject && collision.gameObject.CompareTag("Player"))
         {
             BlacksmithUI.SetActive(false);
             OnActivateBlacksmithUI?.Invoke(BlacksmithUI.activeInHierarchy);

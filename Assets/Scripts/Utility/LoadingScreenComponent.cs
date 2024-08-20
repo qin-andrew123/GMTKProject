@@ -20,7 +20,6 @@ public class LoadingScreenComponent : MonoBehaviour
     {
         Sprite imageToPick = potentialLoadingArt[UnityEngine.Random.Range(0, potentialLoadingArt.Length)];
         GetComponent<Image>().sprite = imageToPick;
-        gameObject.SetActive(true);
         StartCoroutine(LoadingTimer());
     }
 

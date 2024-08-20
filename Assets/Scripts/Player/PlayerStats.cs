@@ -10,6 +10,8 @@ public enum CurrencyType
 [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData", order = 2)]
 public class PlayerStats : ScriptableObject
 {
+    [Tooltip("How far away can the player interact with something")]
+    public float interactDistance = 3.0f;
     public int maxHealth;
     public float invulnerabilityTime;
     public int numCurrency = 0;
