@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 1
+  damageSFX: {fileID: 8300000, guid: 93d9e8f4cfb150a4ea1fa132d4eb141b, type: 3}
 --- !u!61 &3747881708347534748
 BoxCollider2D:
   m_ObjectHideFlags: 0

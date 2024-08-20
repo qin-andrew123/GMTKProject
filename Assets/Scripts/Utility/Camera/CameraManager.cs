@@ -25,6 +25,12 @@ public class CameraManager : MonoBehaviour
         get { return bOverrideLookatLerping; }
         set { bOverrideLookatLerping = value; }
     }
+
+    private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip cavernAudio;
+    [SerializeField] private AudioClip gemAudio;
+    [SerializeField] private AudioClip waterAudio;
+
     private void Awake()
     {
         if (Instance == null)
@@ -41,12 +47,18 @@ public class CameraManager : MonoBehaviour
         normalYPanAmount = framingTransposer.m_YDamping;
 
         startingTrackedObjectOffset = framingTransposer.m_TrackedObjectOffset;
+
+        // Start ambient audio
+        playerAudioSource = GetComponent<AudioSource>();
+        playerAudioSource.clip = cavernAudio;
+        playerAudioSource.Play();
     }
 
     public void PanCameraOnContact(float panDistance, float panTime, PanDirection ePanDirection, bool bPanToStartingPos)
     {
         panCameraCoroutine = StartCoroutine(IEPanCameraOnContact(panDistance, panTime, ePanDirection, bPanToStartingPos));
     }
+
     public void UpdateMainCamera(int cameraIndex)
     {
         if (allVirtualCameras.Length <= cameraIndex)
@@ -59,7 +71,21 @@ public class CameraManager : MonoBehaviour
         currentCamera = allVirtualCameras[cameraIndex];
         currentCamera.enabled = true;
         UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
+
+        // Update ambient audio
+        if (cameraIndex == 0)   // in main pit
+        {
+            playerAudioSource.clip = cavernAudio;
+            playerAudioSource.Play();
+        }
+        else if (cameraIndex == 1)  // in level
+        {
+            // TO DO: add if statements depending on gem or water
+            playerAudioSource.clip = gemAudio;
+            playerAudioSource.Play();
+        }
     }
+
     private IEnumerator IEPanCameraOnContact(float panDistance, float panTime, PanDirection ePanDirection, bool bPanToStartingPos)
     {
         Vector2 endpos = Vector2.zero;
@@ -104,6 +130,7 @@ public class CameraManager : MonoBehaviour
             yield return null;
         }
     }
+
     public void LerpYDamping(bool isPlayerFalling)
     {
         lerpYPanCoroutine = StartCoroutine(LerpYAction(isPlayerFalling));
@@ -167,6 +194,19 @@ public class CameraManager : MonoBehaviour
             leftCamera.enabled = false;
             currentCamera = rightCamera;
             framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+            // Update ambient audio
+            if (currentCamera == allVirtualCameras[0])   // in main pit
+            {
+                playerAudioSource.clip = cavernAudio;
+                playerAudioSource.Play();
+            }
+            else if (currentCamera == allVirtualCameras[1])  // in level
+            {
+                // TO DO: add if statements depending on gem or water
+                playerAudioSource.clip = waterAudio;
+                playerAudioSource.Play();
+            }
+            
             CameraManager.Instance.UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
             return true;
         }
@@ -176,6 +216,19 @@ public class CameraManager : MonoBehaviour
             rightCamera.enabled = false;
             currentCamera = leftCamera;
             framingTransposer = currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+            // Update ambient audio
+            if (currentCamera == allVirtualCameras[0])   // in main pit
+            {
+                playerAudioSource.clip = cavernAudio;
+                playerAudioSource.Play();
+            }
+            else if (currentCamera == allVirtualCameras[1])  // in level
+            {
+                // TO DO: add if statements depending on gem or water
+                playerAudioSource.clip = waterAudio;
+                playerAudioSource.Play();
+            }
+            
             CameraManager.Instance.UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
             return true;
         }

@@ -17,6 +17,10 @@ public class PlayerHealth : MonoBehaviour
     private int maxHealth;
     private int currentHealth;
     private float invulnTime;
+
+    private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip deathSFX;
+
     private void InitializeStats()
     {
         currentHealth = GlobalData.Instance.GetInitMaxHealth();
@@ -35,27 +39,34 @@ public class PlayerHealth : MonoBehaviour
 
         Player.OnUpgradePurchased += UpdateMaxHealth;
         Player.OnUpgradePurchased += UpdateImmunities;
+
+        playerAudioSource = GetComponent<AudioSource>();
     }
+
     private void OnDestroy()
     {
         Player.OnUpgradePurchased -= UpdateMaxHealth;
         Player.OnUpgradePurchased -= UpdateImmunities;
     }
+
     private void UpdateMaxHealth(Upgrade type, int amount)
     {
         maxHealth += amount;
         currentHealth = maxHealth;
         OnPlayerHealthChanged?.Invoke(maxHealth);
     }
+
     private void UpdateImmunities(Upgrade type, int amount)
     {
         numInvulnSaves = amount;
     }
+
     public void ResetInvulnSaves()
     {
         Player player = GetComponent<Player>();
         numInvulnSaves = player.ObstacleImmunityLevel;
     }
+
     public void AdjustHealth(int inputAmount)
     {
         if (inputAmount < 0)
@@ -76,18 +87,25 @@ public class PlayerHealth : MonoBehaviour
         {
             OnPlayerDie?.Invoke();
             ResetPlayerHealth();
+
+            // Play SFX
+            playerAudioSource.clip = deathSFX;
+            playerAudioSource.PlayDelayed(1.25f);
         }
     }
+
     private void ResetPlayerHealth()
     {
         currentHealth = maxHealth;
         OnPlayerHealthChanged?.Invoke(maxHealth);
         ResetInvulnSaves();
     }
+
     public void CallInvulnerability(float inputTime)
     {
         StartCoroutine(InvulnerabilityTime(inputTime));
     }
+
     IEnumerator InvulnerabilityTime(float invulnTime)
     {
         bCanTakeDamage = false;

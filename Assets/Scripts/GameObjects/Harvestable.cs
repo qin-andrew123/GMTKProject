@@ -12,6 +12,9 @@ public class Harvestable : MonoBehaviour
     [SerializeField] private TextMeshPro collectableDescription;
     [SerializeField] private bool bCanRespawn = false;
 
+    private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip collectSFX;
+
     [Header("Loot Crates")]
     [Tooltip("This is for end of dungeon reward")]
     [SerializeField] private bool bIsLootCrate = false;
@@ -42,15 +45,20 @@ public class Harvestable : MonoBehaviour
         }
         string descText = "x" + numResourcesDropped;
         collectableDescription.text = descText;
+
+        playerAudioSource = GlobalData.Instance.playerReference.GetComponent<AudioSource>();
     }
+
     private void OnEnable()
     {
         PlayerController.PlayerAttemptHarvest += QueryIsHarvestable;
     }
+
     private void OnDisable()
     {
         PlayerController.PlayerAttemptHarvest -= QueryIsHarvestable;
     }
+
     private void QueryIsHarvestable(GameObject player)
     {
         if (!player)
@@ -70,6 +78,7 @@ public class Harvestable : MonoBehaviour
             CollectHarvestable(collision.gameObject);
         }
     }
+
     private void CollectHarvestable(GameObject player)
     {
         if (player.GetComponent<Player>().DoGetBonusReward && bIsLootCrate)
@@ -93,7 +102,11 @@ public class Harvestable : MonoBehaviour
             miniRss.GetComponent<Collectable>().FloatingString = displayString;
             miniRss.GetComponent<Collectable>().NumRssDropped = 1;
         }
+
         OnHarvest?.Invoke(gameObject);
         gameObject.SetActive(false);
+
+        // Play SFX
+        playerAudioSource.PlayOneShot(collectSFX);
     }
 }
