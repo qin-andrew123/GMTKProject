@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Harvestable : MonoBehaviour
 {
-    [SerializeField] private float distForHarvest = 3.0f;
     [SerializeField] private int numResourcesDropped = 1;
     [SerializeField] private CurrencyType eMaterialType;
     [SerializeField] private GameObject resourceSprites;
@@ -58,13 +57,13 @@ public class Harvestable : MonoBehaviour
         {
             Debug.Log("Player is null uhoh");
         }
-        if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= distForHarvest)
+        if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= GlobalData.Instance.GetPlayerInteractDistance())
         {
             CollectHarvestable(player);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject && collision.gameObject.CompareTag("Player"))
         {

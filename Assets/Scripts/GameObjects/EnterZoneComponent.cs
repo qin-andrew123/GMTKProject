@@ -14,8 +14,13 @@ public class EnterZoneComponent : MonoBehaviour
     {
         playerCollider = GetComponent<Collider2D>();
         playerCollider.excludeLayers = permittedLayers;
+        PlayerHealth.OnPlayerDie += AllowPlayersReEntry;
     }
 
+    private void OnDestroy()
+    {
+        PlayerHealth.OnPlayerDie -= AllowPlayersReEntry;
+    }
 
     public void AllowPlayersReEntry()
     {

@@ -486,11 +486,11 @@ InputManager:
     axis: 5
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Harvest
+    m_Name: Interact
     descriptiveName: Button to harvest resource nodes
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: h
+    positiveButton: e
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
