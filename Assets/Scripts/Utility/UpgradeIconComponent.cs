@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +23,7 @@ public class UpgradeIconComponent : MonoBehaviour
     public void AttemptUpgrade()
     {
         GlobalData.Instance.AttemptPurchaseUpgrade(upgradeType);
-        if(GlobalData.Instance.purchasedUpgrades.Contains(upgradeType))
+        if (GlobalData.Instance.purchasedUpgrades.Contains(upgradeType))
         {
             gameObject.GetComponent<Button>().interactable = false;
         }
