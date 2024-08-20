@@ -163,6 +163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bDoesDestroyInstantly: 1
   destroyTime: 2
-  damageAmount: 1
+  damageAmount: 5
   objectVelocityMultiplier: 3
   objectVelocity: {x: 0, y: 0}
