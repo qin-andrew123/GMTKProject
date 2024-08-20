@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] AudioClip invulnBreakSFX;
     public static event Action OnPlayerDie;
     public static event Action<int> OnPlayerHealthChanged;
     private int numInvulnSaves = 0;
@@ -51,6 +52,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void UpdateMaxHealth(Upgrade type, int amount)
     {
+        if (type != Upgrade.CharmOfBravery)
+        {
+            return;
+        }
+
         maxHealth += amount;
         currentHealth = maxHealth;
         OnPlayerHealthChanged?.Invoke(maxHealth);
@@ -58,6 +64,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void UpdateImmunities(Upgrade type, int amount)
     {
+        if (type != Upgrade.BronzeHelmet || type != Upgrade.FragileCap)
+        {
+            return;
+        }
         numInvulnSaves = amount;
     }
 
@@ -74,6 +84,7 @@ public class PlayerHealth : MonoBehaviour
             if (numInvulnSaves > 0)
             {
                 --numInvulnSaves;
+                playerAudioSource.PlayOneShot(invulnBreakSFX);
                 StartCoroutine(InvulnerabilityTime(invulnTime));
                 return;
             }

@@ -42,7 +42,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: left ctrl
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: mouse 0
     gravity: 1000
@@ -491,22 +491,6 @@ InputManager:
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: e
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0
-    sensitivity: 0.1
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: Blacksmith
-    descriptiveName: Button that works at spawn. Opens up Blacksmith shop
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: b
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0

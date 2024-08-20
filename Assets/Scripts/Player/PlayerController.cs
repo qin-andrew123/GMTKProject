@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private Vector2 frameMouseInput;
     private bool bCanBreakBlock = true;
     private Animator playerAnimator;
-    
+
     private AudioSource playerAudioSource;
     [SerializeField] private AudioClip jumpSFX;
-
+    [SerializeField] private AudioClip omniSFX;
     public bool SlidingOnIce
     {
         set { bSlidingOnIce = value; }
@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
             frameMouseInput.Normalize();
             omnitool.SetActive(true);
             omnitool.GetComponent<Animator>().Play("Omnitool");
+            GetComponent<AudioSource>().PlayOneShot(omniSFX);
             StartCoroutine(ToolAnim());
             MineBlock();
         }
@@ -128,6 +129,12 @@ public class PlayerController : MonoBehaviour, IPlayerController
             CameraManager.Instance.LerpedFromPlayerFalling = false;
 
             CameraManager.Instance.LerpYDamping(false);
+        }
+
+        // QUIT FUNCTIONALITY
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
@@ -365,7 +372,10 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private bool CanUseCoyote => _coyoteUsable && !_grounded && _time < _frameLeftGrounded + _stats.CoyoteTime;
     private void ReceiveAdditionalJumps(Upgrade type, int amount)
     {
-        Debug.Log("Received additional jumps. This should only appear once");
+        if (type != Upgrade.RustySpring)
+        {
+            return;
+        }
         numJumpsTotal += amount;
     }
 

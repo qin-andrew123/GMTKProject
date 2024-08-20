@@ -14,6 +14,7 @@ public class ObstacleComponent : MonoBehaviour
     [SerializeField] private float objectVelocityMultiplier = 100f;
     [Tooltip("What direction do you want this thing to go?")]
     [SerializeField] private Vector2 objectVelocity;
+    [SerializeField] private AudioClip destroyedSFX;
 
     public void SetObjectVelocity(Vector2 velocity)
     {
@@ -54,11 +55,12 @@ public class ObstacleComponent : MonoBehaviour
             {
                 playerHealth.AdjustHealth(-damageAmount);
             }
-            Destroy(gameObject);
         }
-        else if (collision.gameObject && collision.gameObject.CompareTag("Obstacle"))
+
+        float distance = Vector2.Distance(transform.position, GlobalData.Instance.playerReference.transform.position);
+        if (distance < 5f)
         {
-            Destroy(gameObject);
+            GlobalData.Instance.playerReference.GetComponent<AudioSource>().PlayOneShot(destroyedSFX);
         }
         if (bDoesDestroyInstantly)
         {

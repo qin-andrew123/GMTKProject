@@ -126,10 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae28d30291ab474dbde4b7d40b23ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bDoesDestroyInstantly: 1
+  bDoesHaveAirtime: 1
+  airtimeDuration: 0.1
   destroyTime: 2
   damageAmount: 1
   objectVelocityMultiplier: 3
   objectVelocity: {x: 0, y: 0}
+  destroyedSFX: {fileID: 8300000, guid: 1e3ff91e5f0bb644798ffde63367325d, type: 3}
 --- !u!61 &2806418910239006226
 BoxCollider2D:
   m_ObjectHideFlags: 0
