@@ -9926,11 +9926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5403298756114510864, guid: 4ab1637b681e8e849bd487bd7fa6dfef, type: 3}
       propertyPath: m_LocalPosition.y
-<<<<<<< Updated upstream
-      value: -0.8
-=======
       value: -1
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 5403298756114510864, guid: 4ab1637b681e8e849bd487bd7fa6dfef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9941,17 +9937,8 @@ PrefabInstance:
       value: CameraManager
       objectReference: {fileID: 0}
     - target: {fileID: 6379687334022821100, guid: 4ab1637b681e8e849bd487bd7fa6dfef, type: 3}
-<<<<<<< Updated upstream
-      propertyPath: m_LocalPosition.x
-      value: -6.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379687334022821100, guid: 4ab1637b681e8e849bd487bd7fa6dfef, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.8
-=======
       propertyPath: m_LocalPosition.y
       value: -1
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 7693977674576720769, guid: 4ab1637b681e8e849bd487bd7fa6dfef, type: 3}
       propertyPath: m_Follow
@@ -9963,15 +9950,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8806577962176404036, guid: 4ab1637b681e8e849bd487bd7fa6dfef, type: 3}
       propertyPath: m_LocalPosition.y
-<<<<<<< Updated upstream
-      value: -0.8
-=======
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8806577962176404036, guid: 4ab1637b681e8e849bd487bd7fa6dfef, type: 3}
       propertyPath: m_LocalPosition.z
       value: -10
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38699,8 +38682,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b4a7bcb654f3be4190617280ee8f57b, type: 3}
-<<<<<<< Updated upstream
-=======
 --- !u!1001 &2373849110050302465
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38882,7 +38863,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 81aaca6ddf39d414397b5ce86932908d, type: 3}
->>>>>>> Stashed changes
 --- !u!1001 &3876220613615721185
 PrefabInstance:
   m_ObjectHideFlags: 0
