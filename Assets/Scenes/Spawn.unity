@@ -2237,7 +2237,7 @@ MonoBehaviour:
     Space
     - Jump
 
-    Left Ctrl + Esc - Quit Game (Closes application!)'
+    Esc - Quit Game (Closes application!)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 390753eafde3b0e40b83cf666ac810af, type: 2}
   m_sharedMaterial: {fileID: -8037850492948862807, guid: 390753eafde3b0e40b83cf666ac810af, type: 2}
