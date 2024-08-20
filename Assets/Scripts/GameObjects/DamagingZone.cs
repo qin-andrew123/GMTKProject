@@ -7,12 +7,21 @@ public class DamagingZone : MonoBehaviour
 {
     [SerializeField] private int damageAmount = 1;
 
+    private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip damageSFX;
+
+    void Start()
+    {
+        playerAudioSource = GlobalData.Instance.playerReference.GetComponent<AudioSource>();
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject && collision.gameObject.CompareTag("Player"))
         {
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
             Player player = collision.gameObject.GetComponent<Player>();
+
             if (!playerHealth || !player)
             {
                 Debug.LogError("Error: Missing player on collided player object");
@@ -39,6 +48,9 @@ public class DamagingZone : MonoBehaviour
                 }
                 
                 playerHealth.AdjustHealth(-modifyingDamage);
+
+                // Play SFX
+                playerAudioSource.PlayOneShot(damageSFX, 0.2f);
             }
         }
     }

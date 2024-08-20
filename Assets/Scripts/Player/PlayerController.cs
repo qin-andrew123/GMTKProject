@@ -394,6 +394,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
         Jumped?.Invoke();
 
+        // Play SFX
         playerAudioSource.PlayOneShot(jumpSFX);
     }
 

@@ -72,7 +72,7 @@ public class CameraManager : MonoBehaviour
         currentCamera.enabled = true;
         UpdateConfiningShape(GlobalData.Instance.playerReference.transform.position);
 
-        // DOESN'T DO ANYTHING: Update ambient audio
+        // Update ambient audio
         if (cameraIndex == 0)   // in main pit
         {
             playerAudioSource.clip = cavernAudio;
